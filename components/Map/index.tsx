@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useEffect, useMemo, useState} from 'react';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import TreeMarker from '../TreeMarker';
 import readGzipToJson from '../../utils/readGzipToJson';
-
-import TREE_DATA from '../../data/db.gz';
+import {StyleSheet, View} from 'react-native';
+import {TreeDatumType} from '../../utils/types';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
@@ -13,10 +13,23 @@ const NYC_LATLNG = {
 };
 
 function Map() {
+  const [treeData, setTreeData] = useState<TreeDatumType[]>([]);
+
+  const treeMarkers = useMemo(() => {
+    const rendered = [];
+
+    for (const treeDatum of treeData) {
+      rendered.push(<TreeMarker key={treeDatum.id} treeDatum={treeDatum} />);
+    }
+
+    return rendered;
+  }, [treeData]);
+
   useEffect(() => {
     const readDataIntoState = async () => {
-      const treeJson = await readGzipToJson(TREE_DATA);
-      console.log(treeJson);
+      const dataPath = require('../../data/manhattan_trees.gz');
+      const treeJson = await readGzipToJson(dataPath);
+      setTreeData(treeJson);
     };
 
     readDataIntoState();
@@ -28,8 +41,9 @@ function Map() {
         mapType="terrain"
         provider={PROVIDER_GOOGLE}
         region={NYC_LATLNG}
-        style={styles.map}
-      />
+        style={styles.map}>
+        {treeMarkers}
+      </MapView>
     </View>
   );
 }

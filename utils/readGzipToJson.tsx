@@ -1,24 +1,25 @@
 import {inflate} from 'pako';
-
-async function readBlob(file: Blob) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = function (event) {
-      resolve(event?.target?.result);
-    };
-
-    reader.readAsArrayBuffer(file);
-    reader.onabort = reject;
-    reader.onerror = reject;
-  });
-}
+import {Asset} from 'expo-asset';
+import ReactNativeBlobUtil from 'react-native-blob-util';
+import base64ToArrayBuffer from './base64ToArrayBuffer';
 
 async function readGzipToJson(gzPath: string) {
-  const fetchRes = await fetch(gzPath);
-  const dataBlob = await fetchRes.blob();
+  // get the static uri of the require()'d asset
+  const gzAsset = Asset.fromModule(gzPath);
 
-  const fileData = await readBlob(dataBlob);
-  return JSON.parse(inflate(fileData, {to: 'string'}));
+  // fetch the actual file and read into memory
+  const fetchRes = await ReactNativeBlobUtil.fetch('GET', gzAsset.uri);
+
+  // convert blob response into base64 string
+  const data = await fetchRes.base64();
+
+  // convert base64 string into array buffer
+  const arrayBuffer = base64ToArrayBuffer(data);
+
+  // inflate gzipped array buffer into json
+  const inflated = JSON.parse(inflate(arrayBuffer, {to: 'string'}));
+
+  return inflated;
 }
 
 export default readGzipToJson;
