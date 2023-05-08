@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import TreeMarker from '../TreeMarker';
 import readGzipToJson from '../../utils/readGzipToJson';
 import {StyleSheet, View} from 'react-native';
@@ -14,6 +14,7 @@ const NYC_LATLNG = {
 
 function Map() {
   const [treeData, setTreeData] = useState<TreeDatumType[]>([]);
+  console.log(treeData);
 
   const treeMarkers = useMemo(() => {
     const rendered = [];
@@ -29,7 +30,7 @@ function Map() {
     const readDataIntoState = async () => {
       const dataPath = require('../../data/manhattan_trees.gz');
       const treeJson = await readGzipToJson(dataPath);
-      setTreeData(treeJson);
+      setTreeData(treeJson.slice(0, 20));
     };
 
     readDataIntoState();
@@ -38,11 +39,20 @@ function Map() {
   return (
     <View style={styles.container}>
       <MapView
+        initialRegion={NYC_LATLNG}
         mapType="terrain"
         provider={PROVIDER_GOOGLE}
-        region={NYC_LATLNG}
         style={styles.map}>
         {treeMarkers}
+        <Marker
+          title="hello world"
+          description="can you hear me?"
+          coordinate={{
+            latitude: 40.67513539614678,
+            longitude: -73.96392560469623,
+          }}
+          pinColor="#5ca13a"
+        />
       </MapView>
     </View>
   );

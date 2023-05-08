@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Marker} from 'react-native-maps';
 import {TreeDatumType} from '../../utils/types';
 
 type TreeMarkerProps = {
@@ -7,11 +7,7 @@ type TreeMarkerProps = {
 };
 
 function TreeMarker({treeDatum}: TreeMarkerProps) {
-  return (
-    <View>
-      <Text>{JSON.stringify(treeDatum)}</Text>
-    </View>
-  );
+  return <Marker title={treeDatum.species} coordinate={treeDatum.location} />;
 }
 
 export default TreeMarker;
