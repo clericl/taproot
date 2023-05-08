@@ -6,6 +6,7 @@ import Map from './screens/Map';
 import Journey from './screens/Journey';
 import Learn from './screens/Learn';
 import Profile from './screens/Profile';
+import RedisController from './components/RedisController';
 
 export type RootStackParamList = {
   Landing: undefined;
@@ -21,19 +22,21 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Landing">
-        <Stack.Screen
-          name="Landing"
-          component={Landing}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen name="Map" component={Map} />
-        <Stack.Screen name="Journey" component={Journey} />
-        <Stack.Screen name="Learn" component={Learn} />
-        <Stack.Screen name="Profile" component={Profile} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <RedisController>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Landing">
+          <Stack.Screen
+            name="Landing"
+            component={Landing}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="Map" component={Map} />
+          <Stack.Screen name="Journey" component={Journey} />
+          <Stack.Screen name="Learn" component={Learn} />
+          <Stack.Screen name="Profile" component={Profile} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </RedisController>
   );
 }
 

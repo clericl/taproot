@@ -1,7 +1,6 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import MapView, {Marker, Region, PROVIDER_GOOGLE} from 'react-native-maps';
 import TreeMarker from '../TreeMarker';
-import readGzipToJson from '../../utils/readGzipToJson';
 import {StyleSheet, View} from 'react-native';
 import {TreeDatumType} from '../../utils/types';
 
@@ -14,7 +13,9 @@ const NYC_LATLNG = {
 
 function Map() {
   const [treeData, setTreeData] = useState<TreeDatumType[]>([]);
-  console.log(treeData);
+  // const [zoom, setZoom] = useState<number>(1);
+  const mapRef = useRef<MapView>(null);
+  // const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   const treeMarkers = useMemo(() => {
     const rendered = [];
@@ -26,11 +27,22 @@ function Map() {
     return rendered;
   }, [treeData]);
 
+  const handleRegionChange = useCallback((newRegion: Region) => {
+    // if (timerRef.current) {
+    //   clearTimeout(timerRef.current);
+    // }
+
+    // timerRef.current = setTimeout(() => {
+    //   const zoom = Math.round(
+    //     Math.log(360 / newRegion.longitudeDelta) / Math.LN2,
+    //   );
+    // });
+    console.log(newRegion);
+  }, []);
+
   useEffect(() => {
     const readDataIntoState = async () => {
-      const dataPath = require('../../data/manhattan_trees.gz');
-      const treeJson = await readGzipToJson(dataPath);
-      setTreeData(treeJson.slice(0, 20));
+      setTreeData([]);
     };
 
     readDataIntoState();
@@ -41,7 +53,9 @@ function Map() {
       <MapView
         initialRegion={NYC_LATLNG}
         mapType="terrain"
+        onRegionChange={handleRegionChange}
         provider={PROVIDER_GOOGLE}
+        ref={mapRef}
         style={styles.map}>
         {treeMarkers}
         <Marker
