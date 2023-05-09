@@ -1,7 +1,7 @@
 import React, {useCallback, useMemo, useRef, useState} from 'react';
 import API from '../../utils/API';
 import Loader from '../Loader';
-import MapView, {Marker, Region, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {Region, PROVIDER_GOOGLE} from 'react-native-maps';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
 import {StyleSheet, View} from 'react-native';
@@ -63,15 +63,6 @@ function Map() {
         ref={mapRef}
         style={styles.map}>
         {treeMarkers}
-        <Marker
-          title="hello world"
-          description="can you hear me?"
-          coordinate={{
-            latitude: 40.67513539614678,
-            longitude: -73.96392560469623,
-          }}
-          pinColor="#5ca13a"
-        />
       </MapView>
       <Loader loading={loading} />
     </View>
