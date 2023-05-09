@@ -19,20 +19,25 @@ class API {
       API_ENDPOINT +
         `/trees?latitude=${latitude}&longitude=${longitude}&radius=${radius}`,
     );
-    const body = await res.json();
-    const transformed = body.map(
-      ({member, coordinates}: RedisTreeDatumType) => {
-        const returnObj = JSON.parse(member);
-        returnObj.location = {
-          longitude: Number(coordinates.longitude),
-          latitude: Number(coordinates.latitude),
-        };
+    if (res.status < 400) {
+      const body = await res.json();
+      const transformed = body.map(
+        ({member, coordinates}: RedisTreeDatumType) => {
+          const returnObj = JSON.parse(member);
+          returnObj.location = {
+            longitude: Number(coordinates.longitude),
+            latitude: Number(coordinates.latitude),
+          };
 
-        return returnObj;
-      },
-    );
-
-    return transformed;
+          return returnObj;
+        },
+      );
+      return transformed;
+    } else {
+      const message = await res.text();
+      console.log(message);
+    }
+    return [];
   }
 }
 

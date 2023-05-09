@@ -1,10 +1,11 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import API from '../../utils/API';
+import Loader from '../Loader';
 import MapView, {Marker, Region, PROVIDER_GOOGLE} from 'react-native-maps';
 import TreeMarker from '../TreeMarker';
+import asyncDebounce from '../../utils/debounceAsync';
 import {StyleSheet, View} from 'react-native';
 import {TreeDatumType} from '../../utils/types';
-import debounce from 'lodash.debounce';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
@@ -18,7 +19,10 @@ const MI_PER_LON_DEGREE = 54.6;
 const calcZoom = (delta: number) =>
   Math.round(Math.log(360 / delta) / Math.LN2);
 
+const debouncedGetTreeData = asyncDebounce(API.getTreeData, 400);
+
 function Map() {
+  const [loading, setLoading] = useState(false);
   const [treeData, setTreeData] = useState<TreeDatumType[]>([]);
   const mapRef = useRef<MapView>(null);
 
@@ -32,28 +36,21 @@ function Map() {
     return rendered;
   }, [treeData]);
 
-  const handleRegionChange = debounce(async (newRegion: Region) => {
+  const handleRegionChange = useCallback(async (newRegion: Region) => {
     const {latitude, longitude, longitudeDelta} = newRegion;
     const zoomLevel = calcZoom(longitudeDelta);
-
-    console.log('new zoom level:', zoomLevel);
+    // console.log('new zoom level:', zoomLevel);
 
     if (zoomLevel > 16) {
+      setLoading(true);
       const searchAreaRadius = longitudeDelta * MI_PER_LON_DEGREE;
-      const newData = await API.getTreeData(
+      const newData = await debouncedGetTreeData(
         {latitude, longitude},
         searchAreaRadius,
       );
       setTreeData(newData);
+      setLoading(false);
     }
-  }, 500);
-
-  useEffect(() => {
-    const readDataIntoState = async () => {
-      setTreeData([]);
-    };
-
-    readDataIntoState();
   }, []);
 
   return (
@@ -76,6 +73,7 @@ function Map() {
           pinColor="#5ca13a"
         />
       </MapView>
+      <Loader loading={loading} />
     </View>
   );
 }
