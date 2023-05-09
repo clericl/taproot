@@ -7,6 +7,7 @@ type TreeMarkerProps = {
 };
 
 function TreeMarker({treeDatum}: TreeMarkerProps) {
+  console.log(treeDatum.location);
   return <Marker title={treeDatum.species} coordinate={treeDatum.location} />;
 }
 

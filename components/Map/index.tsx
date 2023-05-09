@@ -1,21 +1,26 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import API from '../../utils/API';
 import MapView, {Marker, Region, PROVIDER_GOOGLE} from 'react-native-maps';
 import TreeMarker from '../TreeMarker';
 import {StyleSheet, View} from 'react-native';
 import {TreeDatumType} from '../../utils/types';
+import debounce from 'lodash.debounce';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
   longitude: -73.9872,
-  latitudeDelta: 0.06866,
+  latitudeDelta: 0,
   longitudeDelta: 0.04757,
 };
 
+const MI_PER_LON_DEGREE = 54.6;
+
+const calcZoom = (delta: number) =>
+  Math.round(Math.log(360 / delta) / Math.LN2);
+
 function Map() {
   const [treeData, setTreeData] = useState<TreeDatumType[]>([]);
-  // const [zoom, setZoom] = useState<number>(1);
   const mapRef = useRef<MapView>(null);
-  // const timerRef = useRef<ReturnType<typeof setTimeout>>();
 
   const treeMarkers = useMemo(() => {
     const rendered = [];
@@ -27,18 +32,21 @@ function Map() {
     return rendered;
   }, [treeData]);
 
-  const handleRegionChange = useCallback((newRegion: Region) => {
-    // if (timerRef.current) {
-    //   clearTimeout(timerRef.current);
-    // }
+  const handleRegionChange = debounce(async (newRegion: Region) => {
+    const {latitude, longitude, longitudeDelta} = newRegion;
+    const zoomLevel = calcZoom(longitudeDelta);
 
-    // timerRef.current = setTimeout(() => {
-    //   const zoom = Math.round(
-    //     Math.log(360 / newRegion.longitudeDelta) / Math.LN2,
-    //   );
-    // });
-    console.log(newRegion);
-  }, []);
+    console.log('new zoom level:', zoomLevel);
+
+    if (zoomLevel > 16) {
+      const searchAreaRadius = longitudeDelta * MI_PER_LON_DEGREE;
+      const newData = await API.getTreeData(
+        {latitude, longitude},
+        searchAreaRadius,
+      );
+      setTreeData(newData);
+    }
+  }, 500);
 
   useEffect(() => {
     const readDataIntoState = async () => {

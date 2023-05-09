@@ -12,20 +12,13 @@
   "dependencies": {
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
-    "axios": "^1.4.0",
     "expo": "^48.0.0",
-    "expo-asset": "~8.9.1",
-    "expo-constants": "~14.2.1",
-    "js-base64": "^3.7.5",
-    "pako": "^2.1.0",
+    "lodash.debounce": "^4.0.8",
     "react": "18.2.0",
     "react-native": "0.71.7",
-    "react-native-blob-util": "^0.17.3",
-    "react-native-fs": "^2.20.0",
     "react-native-maps": "^1.7.1",
     "react-native-safe-area-context": "^4.5.2",
-    "react-native-screens": "^3.20.0",
-    "redis": "^4.6.6"
+    "react-native-screens": "^3.20.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

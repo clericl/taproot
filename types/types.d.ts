@@ -1,8 +1,7 @@
 declare module 'pako';
+declare module 'lodash.debounce';
 declare module '@env' {
-  export const REDIS_HOST: string;
-  export const REDIS_KEY: string;
-  export const REDIS_PORT: number;
+  export const API_ENDPOINT: string;
 }
 
 declare module '*.gz';
