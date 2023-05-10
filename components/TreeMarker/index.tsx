@@ -2,7 +2,7 @@ import React from 'react';
 import {Marker} from 'react-native-maps';
 import {TreeDatumType} from '../../utils/types';
 
-const iconRequire = require('../../assets/green-marker.png');
+const iconSmall = require('../../assets/green-marker-small.png');
 
 type TreeMarkerProps = {
   treeDatum: TreeDatumType;
@@ -13,7 +13,7 @@ function TreeMarker({treeDatum}: TreeMarkerProps) {
     <Marker
       title={treeDatum.species}
       coordinate={treeDatum.location}
-      icon={iconRequire}
+      icon={iconSmall}
     />
   );
 }
