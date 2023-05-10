@@ -1,19 +1,29 @@
 import React from 'react';
-import {Marker} from 'react-native-maps';
+import {Circle} from 'react-native-maps';
 import {TreeDatumType} from '../../utils/types';
 
-const iconSmall = require('../../assets/green-marker-small.png');
+import _speciesColors from '../../utils/speciesColors.json';
+
+interface SpeciesColor {
+  [key: string]: string;
+}
 
 type TreeMarkerProps = {
   treeDatum: TreeDatumType;
 };
 
+const speciesColors: SpeciesColor = _speciesColors;
+
 function TreeMarker({treeDatum}: TreeMarkerProps) {
   return (
-    <Marker
-      title={treeDatum.species}
-      coordinate={treeDatum.location}
-      icon={iconSmall}
+    <Circle
+      center={treeDatum.location}
+      radius={4 + treeDatum.diameter / 4}
+      strokeColor="rgb(255, 255, 255)"
+      fillColor={
+        speciesColors[treeDatum.species.replaceAll('_', ' ')] ||
+        'rgba(0, 0, 0, 0.5)'
+      }
     />
   );
 }
