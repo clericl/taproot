@@ -28,11 +28,12 @@ const styles = StyleSheet.create({
   container: {
     position: 'absolute',
     top: '2.5%',
-    right: '5%',
+    left: '5%',
   },
   text: {
     fontSize: 20,
     fontWeight: 'bold',
+    color: 'black',
   },
 });
 

@@ -1,8 +1,8 @@
 import {LatLng} from 'react-native-maps';
 import {API_ENDPOINT} from '@env';
-import {TreeDatumType} from './types';
+import {NtaDatumType, TreeDatumType} from './types';
 
-interface RedisTreeDatumType {
+interface RedisGeoSearchType {
   member: string;
   coordinates: {
     longitude: string;
@@ -22,9 +22,38 @@ class API {
     if (res.status < 400) {
       const body = await res.json();
       const transformed = body.map(
-        ({member, coordinates}: RedisTreeDatumType) => {
+        ({member, coordinates}: RedisGeoSearchType) => {
           const returnObj = JSON.parse(member);
           returnObj.location = {
+            longitude: Number(coordinates.longitude),
+            latitude: Number(coordinates.latitude),
+          };
+
+          return returnObj;
+        },
+      );
+      return transformed;
+    } else {
+      const message = await res.text();
+      console.log(message);
+    }
+    return [];
+  }
+
+  static async getNtaData(
+    {latitude, longitude}: LatLng,
+    radius = 0.1,
+  ): Promise<NtaDatumType[]> {
+    const res = await fetch(
+      API_ENDPOINT +
+        `/ntas?latitude=${latitude}&longitude=${longitude}&radius=${radius}`,
+    );
+    if (res.status < 400) {
+      const body = await res.json();
+      const transformed = body.map(
+        ({member, coordinates}: RedisGeoSearchType) => {
+          const returnObj = JSON.parse(member);
+          returnObj.center = {
             longitude: Number(coordinates.longitude),
             latitude: Number(coordinates.latitude),
           };
