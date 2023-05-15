@@ -1,10 +1,9 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import * as Location from 'expo-location';
 import API from '../../utils/API';
-import MapLoading from '../MapLoading';
+import Loader from '../Loader';
 import MapView, {Region, PROVIDER_GOOGLE} from 'react-native-maps';
 import NtaRegion from '../NtaRegion';
-import SpeciesSelect from '../SpeciesSelect';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
@@ -133,8 +132,7 @@ function Map() {
         {ntaRegions}
         {treeMarkers}
       </MapView>
-      <MapLoading loading={loading} />
-      <SpeciesSelect />
+      <Loader loading={loading} />
     </View>
   );
 }

@@ -1,4 +1,4 @@
-package com.treeline;
+package com.taproot;
 import expo.modules.ReactActivityDelegateWrapper;
 
 import android.os.Bundle;
@@ -19,7 +19,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Treeline";
+    return "Taproot";
   }
 
   /**
