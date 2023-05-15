@@ -1,4 +1,4 @@
-package com.taproot;
+package com.treeline;
 import android.content.res.Configuration;
 import expo.modules.ApplicationLifecycleDispatcher;
 import expo.modules.ReactNativeHostWrapper;

@@ -93,9 +93,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.taproot"
+    namespace "com.treeline"
     defaultConfig {
-        applicationId "com.taproot"
+        applicationId "com.treeline"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
