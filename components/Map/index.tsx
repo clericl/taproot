@@ -3,6 +3,7 @@ import * as Location from 'expo-location';
 import API from '../../utils/API';
 import Loader from '../Loader';
 import MapView, {Region, PROVIDER_GOOGLE} from 'react-native-maps';
+import NtaRegion from '../NtaRegion';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
@@ -20,64 +21,81 @@ const MI_PER_LON_DEGREE = 54.6;
 
 const calcZoom = (delta: number) => Math.log(360 / delta) / Math.LN2;
 
-const debouncedGetTreeData = asyncDebounce(API.getTreeData, 400);
-const debouncedGetNtaData = asyncDebounce(API.getNtaData, 400);
+// const debouncedGetTreeData = asyncDebounce(API.getTreeData, 400);
+// const debouncedGetNtaData = asyncDebounce(API.getNtaData, 400);
+
+type MarkerStateType = {
+  ntas: NtaDatumType[];
+  trees: TreeDatumType[];
+};
 
 function Map() {
   const [loading, setLoading] = useState(false);
-  const [ntaData, setNtaData] = useState<NtaDatumType[]>([]);
-  const [treeData, setTreeData] = useState<TreeDatumType[]>([]);
+  const [markerData, setMarkerData] = useState<MarkerStateType>({
+    ntas: [],
+    trees: [],
+  });
   const mapRef = useRef<MapView>(null);
 
   const ntaRegions = useMemo(() => {
     const rendered = [];
 
-    for (const ntaDatum of ntaData) {
-      rendered.push(<TreeMarker key={ntaDatum.ntaCode} ntaDatum={ntaDatum} />);
+    for (const ntaDatum of markerData.ntas) {
+      rendered.push(<NtaRegion key={ntaDatum.ntaCode} ntaDatum={ntaDatum} />);
     }
 
     return rendered;
-  }, [treeData]);
+  }, [markerData]);
 
   const treeMarkers = useMemo(() => {
     const rendered = [];
 
-    for (const treeDatum of treeData) {
+    for (const treeDatum of markerData.trees) {
       rendered.push(<TreeMarker key={treeDatum.id} treeDatum={treeDatum} />);
     }
 
     return rendered;
-  }, [treeData]);
+  }, [markerData]);
 
-  const handleRegionChange = async (newRegion: Region) => {
-    const {latitude, longitude, longitudeDelta} = newRegion;
-    const zoomLevel = calcZoom(longitudeDelta);
-    const searchAreaRadius = longitudeDelta * MI_PER_LON_DEGREE;
+  const updateMarkers = useRef(
+    asyncDebounce(async (newRegion: Region) => {
+      const {latitude, longitude, longitudeDelta} = newRegion;
+      const zoomLevel = calcZoom(longitudeDelta);
+      const searchAreaRadius = longitudeDelta * MI_PER_LON_DEGREE;
 
-    setLoading(true);
+      if (zoomLevel > 16) {
+        const newData = await API.getTreeData(
+          {latitude, longitude},
+          searchAreaRadius,
+        );
+        setMarkerData({
+          ntas: [],
+          trees: newData,
+        });
+      } else if (zoomLevel > 10) {
+        const newData = await API.getNtaData({latitude, longitude}, 5);
+        setMarkerData({
+          ntas: newData,
+          trees: [],
+        });
+      } else {
+        setMarkerData({
+          ntas: [],
+          trees: [],
+        });
+      }
 
-    if (zoomLevel > 16.5) {
-      const newData = await debouncedGetTreeData(
-        {latitude, longitude},
-        searchAreaRadius,
-      );
-      setNtaData([]);
-      setTreeData(newData);
       setLoading(false);
-    } else if (zoomLevel > 10) {
-      const newData = await debouncedGetNtaData(
-        {latitude, longitude},
-        searchAreaRadius,
-      );
-      setNtaData(newData);
-      setTreeData([]);
-      setLoading(false);
-    } else {
-      setNtaData([]);
-      setTreeData([]);
-      setLoading(false);
-    }
-  };
+    }, 400),
+  ).current;
+
+  const handleRegionChange = useCallback(
+    (newRegion: Region) => {
+      setLoading(true);
+      updateMarkers(newRegion);
+    },
+    [updateMarkers],
+  );
 
   useEffect(() => {
     const checkPermissions = async () => {
@@ -111,6 +129,7 @@ function Map() {
         ref={mapRef}
         showsUserLocation={true}
         style={styles.map}>
+        {ntaRegions}
         {treeMarkers}
       </MapView>
       <Loader loading={loading} />

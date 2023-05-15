@@ -10,7 +10,7 @@ function Landing({
   useEffect(() => {
     let timeout: number | undefined;
     timeout = setTimeout(() => {
-      navigation.navigate('Map', {fromLanding: true});
+      navigation.replace('Map', {fromLanding: true});
     }, 2400);
 
     return () => {

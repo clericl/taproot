@@ -16,4 +16,8 @@ export type NtaDatumType = {
   ntaName: string;
   geometry: Geometry;
   treeCount: number;
+  center: {
+    longitude: number;
+    latitude: number;
+  };
 };

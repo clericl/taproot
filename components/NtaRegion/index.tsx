@@ -1,7 +1,8 @@
 import React, {useMemo} from 'react';
-import {Geojson} from 'react-native-maps';
-import {NtaDatumType} from '../../utils/types';
+import {Geojson, Marker} from 'react-native-maps';
 import {GeoJSON} from 'geojson';
+import {NtaDatumType} from '../../utils/types';
+import {StyleSheet, Text} from 'react-native';
 
 type NtaRegionProps = {
   ntaDatum: NtaDatumType;
@@ -23,13 +24,26 @@ function NtaRegion({ntaDatum}: NtaRegionProps) {
   );
 
   return (
-    <Geojson
-      geojson={featureCollection}
-      fillColor="rgba(0, 138, 41, 0.5)"
-      title={ntaDatum.ntaName}
-      tracksViewChanges={false}
-    />
+    <>
+      <Geojson
+        geojson={featureCollection}
+        fillColor="rgba(0, 138, 41, 0.5)"
+        title={ntaDatum.ntaName}
+        tracksViewChanges={false}
+      />
+      <Marker anchor={{x: 0.5, y: 0.5}} coordinate={ntaDatum.center}>
+        <Text style={styles.text}>{ntaDatum.ntaName}</Text>
+        <Text style={styles.text}>{ntaDatum.treeCount}</Text>
+      </Marker>
+    </>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    color: 'black',
+    textAlign: 'center',
+  },
+});
 
 export default NtaRegion;
