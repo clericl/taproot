@@ -2,7 +2,7 @@ import React from 'react';
 import {Circle} from 'react-native-maps';
 import {TreeDatumType} from '../../utils/types';
 
-import _speciesColors from '../../utils/speciesColors.json';
+import _speciesColors from '../../data/speciesColors.json';
 
 interface SpeciesColor {
   [key: string]: string;

@@ -1,23 +1,37 @@
 import React from 'react';
+import {Shadow} from 'react-native-shadow-2';
 import {StyleSheet, TextInput, View} from 'react-native';
 
 function SpeciesSelect() {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} />
+      <Shadow distance={2} style={styles.shadow}>
+        <TextInput
+          placeholder="Sort by species"
+          placeholderTextColor="#969fae"
+          style={styles.input}
+        />
+      </Shadow>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     position: 'absolute',
-    top: '2.5%',
-    width: '90%',
+    top: 7,
+    width: '82.5%',
+    left: 10,
   },
   input: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
+    color: 'black',
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: '100%',
+  },
+  shadow: {
+    width: '100%',
   },
 });
 

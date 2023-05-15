@@ -1,11 +1,11 @@
 import React, {useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-type LoaderProps = {
+type MapLoadingProps = {
   loading: boolean;
 };
 
-function Loader({loading}: LoaderProps) {
+function MapLoading({loading}: MapLoadingProps) {
   const overrideStyles = useMemo(
     () =>
       StyleSheet.create({
@@ -27,8 +27,8 @@ function Loader({loading}: LoaderProps) {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: '2.5%',
-    left: '5%',
+    bottom: '2.5%',
+    right: '5%',
   },
   text: {
     fontSize: 20,
@@ -37,4 +37,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Loader;
+export default MapLoading;

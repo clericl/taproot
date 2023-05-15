@@ -22,12 +22,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Landing">
-        <Stack.Screen
-          name="Landing"
-          component={Landing}
-          options={{headerShown: false}}
-        />
+      <Stack.Navigator
+        initialRouteName="Landing"
+        screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Landing" component={Landing} />
         <Stack.Screen name="Map" component={Map} />
         <Stack.Screen name="Journey" component={Journey} />
         <Stack.Screen name="Learn" component={Learn} />

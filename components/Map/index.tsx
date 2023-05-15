@@ -1,13 +1,14 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import * as Location from 'expo-location';
 import API from '../../utils/API';
-import Loader from '../Loader';
+import MapLoading from '../MapLoading';
 import MapView, {Region, PROVIDER_GOOGLE} from 'react-native-maps';
 import NtaRegion from '../NtaRegion';
+import SpeciesSelect from '../SpeciesSelect';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import {StyleSheet, View} from 'react-native';
+import {Dimensions, StyleSheet, View} from 'react-native';
 import {NtaDatumType, TreeDatumType} from '../../utils/types';
 
 const NYC_LATLNG = {
@@ -20,9 +21,6 @@ const NYC_LATLNG = {
 const MI_PER_LON_DEGREE = 54.6;
 
 const calcZoom = (delta: number) => Math.log(360 / delta) / Math.LN2;
-
-// const debouncedGetTreeData = asyncDebounce(API.getTreeData, 400);
-// const debouncedGetNtaData = asyncDebounce(API.getNtaData, 400);
 
 type MarkerStateType = {
   ntas: NtaDatumType[];
@@ -122,6 +120,7 @@ function Map() {
     <View style={styles.container}>
       <MapView
         initialRegion={NYC_LATLNG}
+        mapPadding={{top: 0, left: 0, right: 0, bottom: 0}}
         mapType="terrain"
         moveOnMarkerPress={false}
         onRegionChange={handleRegionChange}
@@ -132,7 +131,8 @@ function Map() {
         {ntaRegions}
         {treeMarkers}
       </MapView>
-      <Loader loading={loading} />
+      <MapLoading loading={loading} />
+      <SpeciesSelect />
     </View>
   );
 }
@@ -142,6 +142,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'center',
+    height: Dimensions.get('window').height,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
