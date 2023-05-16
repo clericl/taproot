@@ -18,8 +18,6 @@ function TreeMarker({treeDatum, zoomLevel}: TreeMarkerProps) {
     [zoomLevel],
   );
 
-  console.log(zoomLevel, zoomMultiplier);
-
   return (
     <Circle
       center={treeDatum.location}
