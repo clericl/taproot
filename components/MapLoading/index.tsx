@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 type MapLoadingProps = {
   loading: boolean;
@@ -17,9 +17,8 @@ function MapLoading({loading}: MapLoadingProps) {
   );
 
   return (
-    // @ts-ignore;
     <View style={[styles.container, overrideStyles.loadingOpacity]}>
-      <Text style={styles.text}>Loading...</Text>
+      <ActivityIndicator color="#42573e" animating={loading} size={72} />
     </View>
   );
 }
@@ -29,11 +28,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: '2.5%',
     right: '5%',
-  },
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
   },
 });
 
