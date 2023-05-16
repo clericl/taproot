@@ -77,19 +77,10 @@ function Map() {
 
       zoomLevel.current = calcZoom(longitudeDelta);
 
-      if (newSpecies.length) {
-        const newData = await API.getSpeciesData(
-          newSpecies,
-          {latitude, longitude},
-          searchAreaRadius,
-        );
-        setMarkerData({
-          ntas: [],
-          trees: newData,
-        });
-      } else {
-        if (zoomLevel.current > 16) {
-          const newData = await API.getTreeData(
+      try {
+        if (newSpecies.length) {
+          const newData = await API.getSpeciesData(
+            newSpecies,
             {latitude, longitude},
             searchAreaRadius,
           );
@@ -97,18 +88,34 @@ function Map() {
             ntas: [],
             trees: newData,
           });
-        } else if (zoomLevel.current > 10) {
-          const newData = await API.getNtaData({latitude, longitude}, 5);
-          setMarkerData({
-            ntas: newData,
-            trees: [],
-          });
         } else {
-          setMarkerData({
-            ntas: [],
-            trees: [],
-          });
+          if (zoomLevel.current > 16) {
+            const newData = await API.getTreeData(
+              {latitude, longitude},
+              searchAreaRadius,
+            );
+            setMarkerData({
+              ntas: [],
+              trees: newData,
+            });
+          } else if (zoomLevel.current > 10) {
+            const newData = await API.getNtaData(
+              {latitude, longitude},
+              searchAreaRadius * 2,
+            );
+            setMarkerData({
+              ntas: newData,
+              trees: [],
+            });
+          } else {
+            setMarkerData({
+              ntas: [],
+              trees: [],
+            });
+          }
         }
+      } catch (e) {
+        console.log(e);
       }
 
       setLoading(false);

@@ -35,9 +35,8 @@ class API {
       return transformed;
     } else {
       const message = await res.text();
-      console.log(message);
+      throw new Error(message);
     }
-    return [];
   }
 
   static async getNtaData(
@@ -64,9 +63,8 @@ class API {
       return transformed;
     } else {
       const message = await res.text();
-      console.log(message);
+      throw new Error(message);
     }
-    return [];
   }
 
   static async getSpeciesData(
@@ -106,9 +104,8 @@ class API {
       return transformed;
     } else {
       const message = await res.text();
-      console.log(message);
+      throw new Error(message);
     }
-    return [];
   }
 }
 

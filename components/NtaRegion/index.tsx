@@ -1,12 +1,14 @@
 import React, {useMemo} from 'react';
-import {Geojson, Marker} from 'react-native-maps';
+import hslToRgb from '../../utils/hslToRgb';
+import {Geojson} from 'react-native-maps';
 import {GeoJSON} from 'geojson';
 import {NtaDatumType} from '../../utils/types';
-import {StyleSheet, Text} from 'react-native';
 
 type NtaRegionProps = {
   ntaDatum: NtaDatumType;
 };
+
+const HIGHEST_COUNT = 14000; // 12969
 
 function NtaRegion({ntaDatum}: NtaRegionProps) {
   const featureCollection: GeoJSON = useMemo(
@@ -23,27 +25,22 @@ function NtaRegion({ntaDatum}: NtaRegionProps) {
     [ntaDatum.geometry],
   );
 
+  const [r, g, b] = hslToRgb(
+    138 / 360,
+    ntaDatum.treeCount / HIGHEST_COUNT + 0.5,
+    0.27,
+  );
+
   return (
     <>
       <Geojson
         geojson={featureCollection}
-        fillColor="rgba(0, 138, 41, 0.5)"
+        fillColor={`rgba(${r}, ${g}, ${b}, 0.6)`}
         title={ntaDatum.ntaName}
         tracksViewChanges={false}
       />
-      <Marker anchor={{x: 0.5, y: 0.5}} coordinate={ntaDatum.center}>
-        <Text style={styles.text}>{ntaDatum.ntaName}</Text>
-        <Text style={styles.text}>{ntaDatum.treeCount}</Text>
-      </Marker>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  text: {
-    color: 'black',
-    textAlign: 'center',
-  },
-});
 
 export default NtaRegion;
