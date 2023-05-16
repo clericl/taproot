@@ -14,7 +14,7 @@ const speciesColors: SpeciesColor = _speciesColors;
 
 function TreeMarker({treeDatum, zoomLevel}: TreeMarkerProps) {
   const zoomMultiplier = useMemo(
-    () => Math.pow(12 / (zoomLevel - 6), 5),
+    () => Math.pow(16 / zoomLevel, 11) + 0.5,
     [zoomLevel],
   );
 

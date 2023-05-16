@@ -172,6 +172,7 @@ function Map() {
         initialRegion={NYC_LATLNG}
         mapPadding={{top: 55, left: 0, right: 0, bottom: 0}}
         mapType="terrain"
+        minZoomLevel={12}
         moveOnMarkerPress={false}
         onRegionChange={handleRegionChange}
         provider={PROVIDER_GOOGLE}
