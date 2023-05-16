@@ -10,7 +10,7 @@ function Landing({
   useEffect(() => {
     let timeout: number | undefined;
     timeout = setTimeout(() => {
-      navigation.replace('Map', {fromLanding: true});
+      navigation.replace('Map');
     }, 2400);
 
     return () => {
@@ -24,7 +24,7 @@ function Landing({
     <View style={styles.container}>
       <CSSAnimationView duration={600} from={1} to={0} delay={1800}>
         <CSSAnimationView duration={600}>
-          <Text style={styles.message}>Welcome to Treeline.</Text>
+          <Text style={styles.message}>Welcome to Treeline</Text>
         </CSSAnimationView>
       </CSSAnimationView>
     </View>

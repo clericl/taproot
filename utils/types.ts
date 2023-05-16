@@ -1,4 +1,5 @@
 import {Geometry} from 'geojson';
+import {ReactNode} from 'react';
 
 export type TreeDatumType = {
   id: string;
@@ -20,4 +21,13 @@ export type NtaDatumType = {
     longitude: number;
     latitude: number;
   };
+};
+
+export type SpeciesNameType = {
+  id: string;
+  title: string;
+};
+
+export type ControllerProps = {
+  children: ReactNode;
 };

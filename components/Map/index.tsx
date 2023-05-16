@@ -1,15 +1,22 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import * as Location from 'expo-location';
 import API from '../../utils/API';
 import MapLoading from '../MapLoading';
 import MapView, {Region, PROVIDER_GOOGLE} from 'react-native-maps';
 import NtaRegion from '../NtaRegion';
-import SpeciesSelect from '../SpeciesSelect';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
-import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {Dimensions, StyleSheet, View} from 'react-native';
+import {FilterContext} from '../FilterController';
 import {NtaDatumType, TreeDatumType} from '../../utils/types';
+import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
@@ -33,6 +40,7 @@ function Map() {
     ntas: [],
     trees: [],
   });
+  const {species} = useContext(FilterContext);
   const mapRef = useRef<MapView>(null);
 
   const ntaRegions = useMemo(() => {
@@ -61,8 +69,9 @@ function Map() {
       const zoomLevel = calcZoom(longitudeDelta);
       const searchAreaRadius = longitudeDelta * MI_PER_LON_DEGREE;
 
-      if (zoomLevel > 16) {
-        const newData = await API.getTreeData(
+      if (species.length) {
+        const newData = await API.getSpeciesData(
+          species,
           {latitude, longitude},
           searchAreaRadius,
         );
@@ -70,17 +79,28 @@ function Map() {
           ntas: [],
           trees: newData,
         });
-      } else if (zoomLevel > 10) {
-        const newData = await API.getNtaData({latitude, longitude}, 5);
-        setMarkerData({
-          ntas: newData,
-          trees: [],
-        });
       } else {
-        setMarkerData({
-          ntas: [],
-          trees: [],
-        });
+        if (zoomLevel > 16) {
+          const newData = await API.getTreeData(
+            {latitude, longitude},
+            searchAreaRadius,
+          );
+          setMarkerData({
+            ntas: [],
+            trees: newData,
+          });
+        } else if (zoomLevel > 10) {
+          const newData = await API.getNtaData({latitude, longitude}, 5);
+          setMarkerData({
+            ntas: newData,
+            trees: [],
+          });
+        } else {
+          setMarkerData({
+            ntas: [],
+            trees: [],
+          });
+        }
       }
 
       setLoading(false);
@@ -120,7 +140,7 @@ function Map() {
     <View style={styles.container}>
       <MapView
         initialRegion={NYC_LATLNG}
-        mapPadding={{top: 0, left: 0, right: 0, bottom: 0}}
+        mapPadding={{top: 55, left: 0, right: 0, bottom: 0}}
         mapType="terrain"
         moveOnMarkerPress={false}
         onRegionChange={handleRegionChange}
@@ -132,7 +152,6 @@ function Map() {
         {treeMarkers}
       </MapView>
       <MapLoading loading={loading} />
-      <SpeciesSelect />
     </View>
   );
 }
@@ -146,6 +165,22 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  speciesSelect: {
+    position: 'absolute',
+    top: 7,
+    width: Dimensions.get('window').width - 24,
+    left: 12,
+  },
+  speciesSelectText: {
+    color: '#969fae',
+    backgroundColor: 'white',
+    paddingLeft: 15,
+    paddingRight: 15,
+    width: '100%',
+  },
+  speciesSelectShadow: {
+    width: '100%',
   },
 });
 

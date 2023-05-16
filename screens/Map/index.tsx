@@ -1,21 +1,13 @@
-import React, {useEffect} from 'react';
-import {RootStackParamList} from '../../App';
-import {View, Text, StyleSheet} from 'react-native';
+import React from 'react';
 import MapComponent from '../../components/Map';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import SpeciesSelect from '../../components/SpeciesSelect';
+import {View, StyleSheet} from 'react-native';
 
-function Map({
-  navigation,
-  route,
-}: NativeStackScreenProps<RootStackParamList, 'Map'>) {
-  useEffect(() => {
-    navigation.setOptions({headerBackVisible: !route?.params?.fromLanding});
-  }, [navigation, route]);
-
+function Map() {
   return (
     <View style={styles.container}>
-      <Text>Map screen!</Text>
       <MapComponent />
+      <SpeciesSelect />
     </View>
   );
 }
@@ -25,6 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    position: 'relative',
   },
 });
 
