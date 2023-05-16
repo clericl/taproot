@@ -14,14 +14,14 @@ const speciesColors: SpeciesColor = _speciesColors;
 
 function TreeMarker({treeDatum, zoomLevel}: TreeMarkerProps) {
   const zoomMultiplier = useMemo(
-    () => Math.pow(16 / zoomLevel, 11) + 0.5,
+    () => Math.pow(16 / zoomLevel, 11) + 0.35,
     [zoomLevel],
   );
 
   return (
     <Circle
       center={treeDatum.location}
-      radius={(4 + treeDatum.diameter / 4) * zoomMultiplier}
+      radius={(4 + Math.sqrt(treeDatum.diameter)) * zoomMultiplier}
       strokeColor="rgb(255, 255, 255)"
       fillColor={
         speciesColors[treeDatum.species.replaceAll('_', ' ')] ||
