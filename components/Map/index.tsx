@@ -15,7 +15,7 @@ import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {FilterContext} from '../FilterController';
-import {NtaDatumType, TreeDatumType} from '../../utils/types';
+import {NtaDatumType, SpeciesNameType, TreeDatumType} from '../../utils/types';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 
 const NYC_LATLNG = {
@@ -40,8 +40,9 @@ function Map() {
     ntas: [],
     trees: [],
   });
-  const {species} = useContext(FilterContext);
   const mapRef = useRef<MapView>(null);
+  const {species} = useContext(FilterContext);
+  const zoomLevel = useRef(calcZoom(NYC_LATLNG.longitudeDelta));
 
   const ntaRegions = useMemo(() => {
     const rendered = [];
@@ -57,21 +58,28 @@ function Map() {
     const rendered = [];
 
     for (const treeDatum of markerData.trees) {
-      rendered.push(<TreeMarker key={treeDatum.id} treeDatum={treeDatum} />);
+      rendered.push(
+        <TreeMarker
+          key={treeDatum.id}
+          treeDatum={treeDatum}
+          zoomLevel={zoomLevel.current}
+        />,
+      );
     }
 
     return rendered;
-  }, [markerData]);
+  }, [zoomLevel, markerData]);
 
   const updateMarkers = useRef(
-    asyncDebounce(async (newRegion: Region) => {
+    asyncDebounce(async (newRegion: Region, newSpecies: SpeciesNameType[]) => {
       const {latitude, longitude, longitudeDelta} = newRegion;
-      const zoomLevel = calcZoom(longitudeDelta);
       const searchAreaRadius = longitudeDelta * MI_PER_LON_DEGREE;
 
-      if (species.length) {
+      zoomLevel.current = calcZoom(longitudeDelta);
+
+      if (newSpecies.length) {
         const newData = await API.getSpeciesData(
-          species,
+          newSpecies,
           {latitude, longitude},
           searchAreaRadius,
         );
@@ -80,7 +88,7 @@ function Map() {
           trees: newData,
         });
       } else {
-        if (zoomLevel > 16) {
+        if (zoomLevel.current > 16) {
           const newData = await API.getTreeData(
             {latitude, longitude},
             searchAreaRadius,
@@ -89,7 +97,7 @@ function Map() {
             ntas: [],
             trees: newData,
           });
-        } else if (zoomLevel > 10) {
+        } else if (zoomLevel.current > 10) {
           const newData = await API.getNtaData({latitude, longitude}, 5);
           setMarkerData({
             ntas: newData,
@@ -110,9 +118,9 @@ function Map() {
   const handleRegionChange = useCallback(
     (newRegion: Region) => {
       setLoading(true);
-      updateMarkers(newRegion);
+      updateMarkers(newRegion, species);
     },
-    [updateMarkers],
+    [species, updateMarkers],
   );
 
   useEffect(() => {
@@ -135,6 +143,28 @@ function Map() {
 
     checkPermissions();
   }, []);
+
+  useEffect(() => {
+    const update = async () => {
+      if (mapRef.current) {
+        const currentCamera = await mapRef.current.getCamera();
+        const {latitude, longitude} = currentCamera.center;
+        await updateMarkers(
+          {
+            latitude,
+            longitude,
+            latitudeDelta: 0,
+            longitudeDelta: Math.exp(
+              Math.log(360) - (zoomLevel.current || 16) * Math.LN2,
+            ),
+          },
+          species,
+        );
+      }
+    };
+
+    update();
+  }, [species, updateMarkers]);
 
   return (
     <View style={styles.container}>

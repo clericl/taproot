@@ -31,3 +31,7 @@ export type SpeciesNameType = {
 export type ControllerProps = {
   children: ReactNode;
 };
+
+export interface SpeciesColor {
+  [key: string]: string;
+}

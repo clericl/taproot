@@ -10,7 +10,16 @@ import Fuse from 'fuse.js';
 import SpeciesItem from '../../components/SpeciesItem';
 import SpeciesPill from '../../components/SpeciesPill';
 import debounce from 'lodash.debounce';
-import {Dimensions, FlatList, StyleSheet, TextInput, View} from 'react-native';
+import {
+  BackHandler,
+  Dimensions,
+  FlatList,
+  Keyboard,
+  ScrollView,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 import {FilterContext} from '../FilterController';
 import {Shadow} from 'react-native-shadow-2';
 import {SpeciesNameType} from '../../utils/types';
@@ -37,7 +46,6 @@ function SpeciesSelect() {
   const [open, setOpen] = useState(false);
   const {species: selected, setSpecies: setSelected} =
     useContext(FilterContext);
-  const textInputRef = useRef<TextInput | null>(null);
   const updateData = useRef(
     debounce((query: string) => {
       if (!query) {
@@ -72,36 +80,49 @@ function SpeciesSelect() {
   }, []);
 
   const speciesPills = useMemo(
-    () => selected.map(item => <SpeciesPill key={item.id} item={item} />),
-    [selected],
+    () =>
+      selected.map(item => (
+        <SpeciesPill key={item.id} item={item} remove={removeFromSelected} />
+      )),
+    [removeFromSelected, selected],
   );
-
-  useEffect(() => {
-    if (textInputRef.current) {
-      setTimeout(() => {
-        textInputRef.current?.focus();
-      }, 100);
-    }
-  }, []);
 
   useEffect(() => {
     updateData(inputValue);
   }, [inputValue, updateData]);
 
+  useEffect(() => {
+    const handleBack = () => {
+      if (open) {
+        Keyboard.dismiss();
+        setOpen(false);
+        return true;
+      }
+
+      return false;
+    };
+
+    BackHandler.addEventListener('hardwareBackPress', handleBack);
+
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', handleBack);
+  }, [open]);
+
   return (
     <View style={styles.container}>
       <View style={styles.widthContainer}>
         <Shadow distance={2} style={styles.shadow}>
-          <TextInput
-            onBlur={() => setOpen(false)}
-            onChangeText={handleChangeText}
-            onFocus={() => setOpen(true)}
-            placeholder="Sort by species"
-            placeholderTextColor="#969fae"
-            ref={textInputRef}
-            style={styles.input}
-            value={inputValue}
-          />
+          <ScrollView>
+            <TextInput
+              onBlur={() => setOpen(false)}
+              onChangeText={handleChangeText}
+              onFocus={() => setOpen(true)}
+              placeholder="Sort by species"
+              placeholderTextColor="#969fae"
+              style={styles.input}
+              value={inputValue}
+            />
+          </ScrollView>
         </Shadow>
         <View style={styles.pillList}>{speciesPills}</View>
       </View>
@@ -169,7 +190,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: 'absolute',
     top: 60,
-    zIndex: 0,
+    zIndex: 2,
   },
 });
 

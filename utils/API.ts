@@ -84,17 +84,25 @@ class API {
     );
     if (res.status < 400) {
       const body = await res.json();
-      const transformed = body.map(
-        ({member, coordinates}: RedisGeoSearchType) => {
+
+      species.forEach((speciesItem, index) => {
+        body[index].forEach((item: any) => {
+          item.scientificName = speciesItem.id;
+        });
+      });
+
+      const transformed = body
+        .flat()
+        .map(({member, coordinates, scientificName}: any) => {
           const returnObj = JSON.parse(member);
           returnObj.location = {
             longitude: Number(coordinates.longitude),
             latitude: Number(coordinates.latitude),
           };
+          returnObj.species = scientificName;
 
           return returnObj;
-        },
-      );
+        });
       return transformed;
     } else {
       const message = await res.text();

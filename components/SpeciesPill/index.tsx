@@ -1,32 +1,45 @@
-import React, {useMemo} from 'react';
+import React, {useCallback, useMemo} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {SpeciesNameType} from '../../utils/types';
-import {StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  PressableStateCallbackType,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
+import {SpeciesColor} from '../../utils/types';
 
 import _speciesColors from '../../data/speciesColors.json';
 
-interface SpeciesColor {
-  [key: string]: string;
-}
-
 export type SpeciesPillProps = {
   item: SpeciesNameType;
+  remove: Function;
 };
 
 const speciesColors: SpeciesColor = _speciesColors;
 
-function SpeciesPill({item}: SpeciesPillProps) {
+function SpeciesPill({item, remove}: SpeciesPillProps) {
   const displayName = useMemo(() => {
     return item.title.split(', ')[0];
   }, [item]);
 
+  const handlePress = useCallback(() => {
+    setTimeout(() => {
+      remove(item);
+    }, 20);
+  }, [item, remove]);
+
   const styles = useMemo(() => styler(item.id), [item.id]);
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.text]}>{displayName}</Text>
-      <Icon style={styles.closeIcon} name="close" />
-    </View>
+    <Pressable onPress={handlePress} style={stylerPressable}>
+      <View style={styles.container}>
+        <Text style={[styles.text]}>{displayName}</Text>
+        <Icon style={styles.closeIcon} name="close" />
+      </View>
+    </Pressable>
   );
 }
 
@@ -61,6 +74,13 @@ const styler = (scientificName: string) =>
       marginLeft: 10,
       color: 'black',
     },
+    iconCover: {
+      backgroundColor: 'black',
+    },
   });
+
+const stylerPressable = ({pressed}: PressableStateCallbackType): ViewStyle => ({
+  transform: pressed ? [{scale: 0.96}] : [],
+});
 
 export default SpeciesPill;

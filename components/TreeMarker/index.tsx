@@ -1,24 +1,29 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Circle} from 'react-native-maps';
 import {TreeDatumType} from '../../utils/types';
+import {SpeciesColor} from '../../utils/types';
 
 import _speciesColors from '../../data/speciesColors.json';
 
-interface SpeciesColor {
-  [key: string]: string;
-}
-
 type TreeMarkerProps = {
   treeDatum: TreeDatumType;
+  zoomLevel: number;
 };
 
 const speciesColors: SpeciesColor = _speciesColors;
 
-function TreeMarker({treeDatum}: TreeMarkerProps) {
+function TreeMarker({treeDatum, zoomLevel}: TreeMarkerProps) {
+  const zoomMultiplier = useMemo(
+    () => Math.pow(12 / (zoomLevel - 6), 5),
+    [zoomLevel],
+  );
+
+  console.log(zoomLevel, zoomMultiplier);
+
   return (
     <Circle
       center={treeDatum.location}
-      radius={4 + treeDatum.diameter / 4}
+      radius={(4 + treeDatum.diameter / 4) * zoomMultiplier}
       strokeColor="rgb(255, 255, 255)"
       fillColor={
         speciesColors[treeDatum.species.replaceAll('_', ' ')] ||
