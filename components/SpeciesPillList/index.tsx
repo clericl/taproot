@@ -3,6 +3,7 @@ import React, {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -27,20 +28,15 @@ const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 function SpeciesPillList({remove}: SpeciesPillListProps) {
   const [open, setOpen] = useState(true);
-  const [height, setHeight] = useState(0);
   const {species: selected} = useContext(FilterContext);
-  const heightValue = useAnimation({immediate: false, from: height});
+  const heightRef = useRef(40);
+  const heightValue = useAnimation({immediate: false, from: heightRef.current});
   const spinValue = useAnimation({immediate: false});
 
   const speciesPills = useMemo(
     () =>
       selected.map(item => (
-        <SpeciesPill
-          key={item.id}
-          item={item}
-          remove={remove}
-          setHeight={setHeight}
-        />
+        <SpeciesPill key={item.id} item={item} remove={remove} />
       )),
     [remove, selected],
   );
@@ -60,11 +56,12 @@ function SpeciesPillList({remove}: SpeciesPillListProps) {
 
   useEffect(() => {
     Animated.spring(heightValue, {
-      toValue: open ? height * selected.length : 0,
+      delay: 50,
+      toValue: open ? heightRef.current * selected.length : 0,
       useNativeDriver: false,
       overshootClamping: true,
     }).start();
-  }, [height, heightValue, open, selected]);
+  }, [heightRef, heightValue, open, selected]);
 
   return (
     <View style={styles.pillList}>
