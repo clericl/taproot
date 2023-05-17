@@ -170,7 +170,11 @@ function Map() {
       }
     };
 
-    update();
+    try {
+      update();
+    } catch (e) {
+      console.log('map not initialized yet!');
+    }
   }, [species, updateMarkers]);
 
   return (
