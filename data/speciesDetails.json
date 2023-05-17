@@ -1,0 +1,530 @@
+{
+  "Acer buergerianum": {
+    "commonNames": "trident maple, three-toothed maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer campestre": {
+    "commonNames": "field maple, hedge maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer ginnala": {
+    "commonNames": "Amur maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer griseum": {
+    "commonNames": "paperbark maple, blood-bark maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer negundo": {
+    "commonNames": "box elder, boxelder maple, Manitoba maple, ash-leaved maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer nigrum": {
+    "commonNames": "black maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer palmatum": {
+    "commonNames": "Japanese maple, palmate maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer platanoides 'Crimson King'": {
+    "commonNames": "Norway maple, Crimson King",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer platanoides": {
+    "commonNames": "Norway maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer pseudoplatanus": {
+    "commonNames": "sycamore maple, planetree maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer rubrum": {
+    "commonNames": "red maple, swamp maple, water maple, soft maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer saccharinum": {
+    "commonNames": "silver maple, creek maple, silverleaf maple, soft maple, large maple, water maple, swamp maple, white maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer saccharum": {
+    "commonNames": "suger maple, rock maple, sugar tree, birds-eye maple, sweet maple, curly maple, hard maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer tataricum": {
+    "commonNames": "Tatar maple, Tatarian maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer truncatum": {
+    "commonNames": "Shandong maple, Shantung maple, purpleblow maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Acer": {
+    "commonNames": "maple",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Aesculus glabra": {
+    "commonNames": "Ohio buckeye",
+    "color": "rgba(126, 150, 60, 0.5)"
+  },
+  "Aesculus hippocastanum": {
+    "commonNames": "horse chestnut, European horsechestnut, buckeye, conker tree",
+    "color": "rgba(126, 150, 60, 0.5)"
+  },
+  "Aesculus x carnea": {
+    "commonNames": "red horse-chestnut",
+    "color": "rgba(126, 150, 60, 0.5)"
+  },
+  "Ailanthus altissima": {
+    "commonNames": "tree of heaven, ailanthus, varnish tree",
+    "color": "rgba(146, 135, 32, 0.5)"
+  },
+  "Albizia julibrissin": {
+    "commonNames": "silk tree, Persian silk tree, pink silk tree, mimosa tree",
+    "color": "rgba(12, 88, 57, 0.5)"
+  },
+  "Alnus glutinosa": {
+    "commonNames": "black alder, common alder, European alder",
+    "color": "rgba(47, 140, 155, 0.5)"
+  },
+  "Amelanchier": {
+    "commonNames": "shadbush, shadblow, serviceberry, sugarplum, saskatoon, juneberry",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Betula nigra": {
+    "commonNames": "river birch, black birch, water birch",
+    "color": "rgba(94, 164, 176, 0.5)"
+  },
+  "Betula papyrifera": {
+    "commonNames": "paper birch, canoe birch, American white birch",
+    "color": "rgba(94, 164, 176, 0.5)"
+  },
+  "Betula pendula": {
+    "commonNames": "silver birch, warty birch, European white birch, East Asian white birch",
+    "color": "rgba(94, 164, 176, 0.5)"
+  },
+  "Carpinus betulus": {
+    "commonNames": "European hornbeam, common hornbeam",
+    "color": "rgba(123, 188, 194, 0.5)"
+  },
+  "Carpinus caroliniana": {
+    "commonNames": "American hornbeam, musclewood, blue beech",
+    "color": "rgba(123, 188, 194, 0.5)"
+  },
+  "Carpinus japonica": {
+    "commonNames": "Japanese hornbeam",
+    "color": "rgba(123, 188, 194, 0.5)"
+  },
+  "Carya glabra": {
+    "commonNames": "pignut hickory",
+    "color": "rgba(126, 150, 60, 0.5)"
+  },
+  "Castanea mollissima": {
+    "commonNames": "Chinese chestnut",
+    "color": "rgba(250, 92, 36, 0.5)"
+  },
+  "Catalpa": {
+    "commonNames": "catalpa, catawba",
+    "color": "rgba(244, 121, 25, 0.5)"
+  },
+  "Cedrus atlantica": {
+    "commonNames": "Atlas cedar",
+    "color": "rgba(96, 235, 218, 0.5)"
+  },
+  "Cedrus deodara": {
+    "commonNames": "deodar cedar, Himalayan cedar, deodar",
+    "color": "rgba(96, 235, 218, 0.5)"
+  },
+  "Celtis occidentalis": {
+    "commonNames": "common hackberry, northern hackberry",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Cercidiphyllum japonicum": {
+    "commonNames": "katsura",
+    "color": "rgba(227, 139, 29, 0.5)"
+  },
+  "Cercis canadensis": {
+    "commonNames": "eastern redbud",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Cercis reniformis": {
+    "commonNames": "Oklahoma redbud",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Chamaecyparis pisifera": {
+    "commonNames": "Sawara cypress",
+    "color": "rgba(32, 147, 47, 0.5)"
+  },
+  "Chamaecyparis thyoides": {
+    "commonNames": "Atlantic white cedar, Atlantic white cypress, southern white cedar, whitecedar, white cypress",
+    "color": "rgba(32, 147, 47, 0.5)"
+  },
+  "Chionanthus retusus": {
+    "commonNames": "Chinese fringetree",
+    "color": "rgba(126, 214, 187, 0.5)"
+  },
+  "Cladrastis kentukea": {
+    "commonNames": "Kentucky yellowwood, American yellowwood",
+    "color": "rgba(118, 191, 84, 0.5)"
+  },
+  "Cornus alternifolia": {
+    "commonNames": "alternate-leaved dogwood, alternateleaf dogwood, pagoda dogwood, green osier",
+    "color": "rgba(189, 80, 21, 0.5)"
+  },
+  "Cornus florida": {
+    "commonNames": "flowering dogwood",
+    "color": "rgba(189, 80, 21, 0.5)"
+  },
+  "Cornus kousa": {
+    "commonNames": "kousa, kousa dogwood, Chinese dogwood, Korean dogwood, Japanese dogwood",
+    "color": "rgba(189, 80, 21, 0.5)"
+  },
+  "Cornus mas": {
+    "commonNames": "Cornelian cherry, cornel, Cornelian cherry dogwood",
+    "color": "rgba(189, 80, 21, 0.5)"
+  },
+  "Corylus colurna": {
+    "commonNames": "Turkish hazel, Turkish filbert",
+    "color": "rgba(99, 34, 12, 0.5)"
+  },
+  "Cotinus coggygria": {
+    "commonNames": "smoketree, European smoketree, Eurasian smoketree, smoke tree, smoke bush, Venetian sumac",
+    "color": "rgba(125, 164, 107, 0.5)"
+  },
+  "Crataegus crusgalli var. inermis": {
+    "commonNames": "cockspur thorn, cockspur hawthorn",
+    "color": "rgba(127, 125, 108, 0.5)"
+  },
+  "Crataegus": {
+    "commonNames": "hawthorn",
+    "color": "rgba(127, 125, 108, 0.5)"
+  },
+  "Eucommia ulmoides": {
+    "commonNames": "Chinese rubber tree, hardy rubber tree",
+    "color": "rgba(221, 124, 81, 0.5)"
+  },
+  "Fagus grandifolia": {
+    "commonNames": "American beech",
+    "color": "rgba(170, 114, 65, 0.5)"
+  },
+  "Fagus sylvatica": {
+    "commonNames": "European beech, common beech",
+    "color": "rgba(170, 114, 65, 0.5)"
+  },
+  "Fraxinus americana": {
+    "commonNames": "white ash, American ash",
+    "color": "rgba(126, 214, 187, 0.5)"
+  },
+  "Fraxinus pennsylvanica": {
+    "commonNames": "green ash, red ash",
+    "color": "rgba(126, 214, 187, 0.5)"
+  },
+  "Fraxinus": {
+    "commonNames": "ash",
+    "color": "rgba(126, 214, 187, 0.5)"
+  },
+  "Ginkgo biloba": {
+    "commonNames": "ginkgo, maidenhair tree",
+    "color": "rgba(3, 85, 5, 0.5)"
+  },
+  "Gleditsia triacanthos var. inermis": {
+    "commonNames": "honey locust, thorny locust, thorny honeylocust",
+    "color": "rgba(125, 164, 34, 0.5)"
+  },
+  "Gymnocladus dioicus": {
+    "commonNames": "Kentucky coffeetree, coffeetree, American coffee berry, Kentucky mahogany, nicker tree, stump tree",
+    "color": "rgba(3, 85, 5, 0.5)"
+  },
+  "Halesia diptera": {
+    "commonNames": "two-wing silverbell, two-winged snowdrop tree",
+    "color": "rgba(146, 135, 32, 0.5)"
+  },
+  "Ilex": {
+    "commonNames": "holly",
+    "color": "rgba(97, 88, 88, 0.5)"
+  },
+  "Juglans nigra": {
+    "commonNames": "black walnut, eastern black walnut, American black walnut",
+    "color": "rgba(126, 150, 60, 0.5)"
+  },
+  "Juniperus virginiana": {
+    "commonNames": "eastern red cedar, red cedar, Virginian juniper, eastern juniper, red juniper",
+    "color": "rgba(32, 147, 47, 0.5)"
+  },
+  "Koelreuteria paniculata": {
+    "commonNames": "goldenrain tree, pride of India, China tree, varnish tree",
+    "color": "rgba(146, 135, 32, 0.5)"
+  },
+  "Lagerstroemia": {
+    "commonNames": "crape myrtle, crepe myrtle",
+    "color": "rgba(90, 229, 129, 0.5)"
+  },
+  "Larix laricina": {
+    "commonNames": "tamarack, hackmatack, eastern larch, black larch, red larch, American larch",
+    "color": "rgba(73, 152, 194, 0.5)"
+  },
+  "Liquidambar styraciflua": {
+    "commonNames": "sweetgum, American sweet gum, American storax, hazel pine, bilsted, redgum, satin-walnut, star-leaved gum, alligatorwood",
+    "color": "rgba(3, 85, 5, 0.5)"
+  },
+  "Liriodendron tulipifera": {
+    "commonNames": "American tulip tree, tuliptree, tulipwood, tulip poplar, yellow poplar",
+    "color": "rgba(176, 201, 121, 0.5)"
+  },
+  "Maackia amurensis": {
+    "commonNames": "Amur maackia",
+    "color": "rgba(3, 85, 5, 0.5)"
+  },
+  "Maclura pomifera": {
+    "commonNames": "Osage orange",
+    "color": "rgba(176, 201, 121, 0.5)"
+  },
+  "Magnolia acuminata": {
+    "commonNames": "cucumber tree, cucumber magnolia, blue magnolia",
+    "color": "rgba(176, 201, 1, 0.5)"
+  },
+  "Magnolia grandiflora": {
+    "commonNames": "southern magnolia, bull bay",
+    "color": "rgba(176, 201, 1, 0.5)"
+  },
+  "Magnolia": {
+    "commonNames": "magnolia",
+    "color": "rgba(176, 201, 1, 0.5)"
+  },
+  "Malus": {
+    "commonNames": "apple",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Metasequoia glyptostroboides": {
+    "commonNames": "dawn redwood",
+    "color": "rgba(189, 80, 21, 0.5)"
+  },
+  "Morus": {
+    "commonNames": "mulberry",
+    "color": "rgba(171, 218, 171, 0.5)"
+  },
+  "Nyssa sylvatica": {
+    "commonNames": "black tupelo, tupelo, black gum, sour gum",
+    "color": "rgba(221, 172, 96, 0.5)"
+  },
+  "Ostrya virginiana": {
+    "commonNames": "American hophornbeam, hop hornbeam, eastern hophornbeam, hardhack, ironwood, leverwood",
+    "color": "rgba(196, 51, 0, 0.5)"
+  },
+  "Parrotia persica": {
+    "commonNames": "Persian ironwood",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Paulownia tomentosa": {
+    "commonNames": "empress tree, princess tree, foxglove-tree",
+    "color": "rgba(146, 135, 32, 0.5)"
+  },
+  "Phellodendron amurense": {
+    "commonNames": "Amur cork tree",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Picea abies": {
+    "commonNames": "Norway spruce, European spruce",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Picea pungens": {
+    "commonNames": "blue spruce, green spruce, Colorado spruce",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Picea": {
+    "commonNames": "spruce",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Pinus nigra": {
+    "commonNames": "Austrian pine, black pine",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Pinus resinosa": {
+    "commonNames": "red pine",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Pinus rigida": {
+    "commonNames": "pitch pine",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Pinus strobus": {
+    "commonNames": "eastern white pine, northern white pine, white pine, Weymouth pine, soft pine",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Pinus sylvestris": {
+    "commonNames": "Scots pine, Scotch pine, Baltic pine",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Pinus virginiana": {
+    "commonNames": "Virginia pine, scrub pine, Jersey pine",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Pinus": {
+    "commonNames": "pine",
+    "color": "rgba(76, 198, 70, 0.5)"
+  },
+  "Platanus x acerifolia": {
+    "commonNames": "London plane, London planetree, hybrid plane",
+    "color": "rgba(6, 128, 5, 0.5)"
+  },
+  "Populus deltoides": {
+    "commonNames": "eastern cottonwood, necklace poplar",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Populus grandidentata": {
+    "commonNames": "bigtooth aspen, large-tooth aspen, American aspen, Canadian poplar, white poplar",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Populus tremuloides": {
+    "commonNames": "quaking aspen, trembling aspen, American aspen, mountain aspen, golden aspen, trembling poplar, white poplar, popple",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Prunus cerasifera": {
+    "commonNames": "cherry plum, myrobalan plum, purple leaf plum",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Prunus serotina": {
+    "commonNames": "black cherry, wild black cherry, rum cherry, mountain black cherry",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Prunus virginiana": {
+    "commonNames": "bitter-berry, chokecherry, Virginia bird cherry, western chokecherry",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Prunus": {
+    "commonNames": "plum",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Pseudotsuga menziesii": {
+    "commonNames": "Douglas fir, Douglas spruce, Oregon pine, Columbian pine",
+    "color": "rgba(6, 128, 5, 0.5)"
+  },
+  "Pyrus calleryana": {
+    "commonNames": "Callery pear",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Quercus acutissima": {
+    "commonNames": "sawtooth oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus alba": {
+    "commonNames": "white oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus bicolor": {
+    "commonNames": "swamp white oak, bicolor oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus coccinea": {
+    "commonNames": "scarlet oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus falcata": {
+    "commonNames": "southern red oak, Spanish oak, bottomland red oak, three-lobed red oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus imbricaria": {
+    "commonNames": "shingle oak, laurel oak, small-leaved oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus macrocarpa": {
+    "commonNames": "bur oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus palustris": {
+    "commonNames": "pin oak, swamp Spanish oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus phellos": {
+    "commonNames": "willow oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus robur": {
+    "commonNames": "English oak, pedunculate oak, common oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus rubra": {
+    "commonNames": "northern red oak, red oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus shumardii": {
+    "commonNames": "Shumard oak, spotted oak, Schneck oak, swamp red oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Quercus velutina": {
+    "commonNames": "black oak, eastern black oak",
+    "color": "rgba(56, 103, 3, 0.5)"
+  },
+  "Robinia pseudoacacia": {
+    "commonNames": "black locust, false acacia",
+    "color": "rgba(125, 164, 107, 0.5)"
+  },
+  "Salix babylonica": {
+    "commonNames": "weeping willow, Babylon willow",
+    "color": "rgba(77, 157, 59, 0.5)"
+  },
+  "Sassafras albidum": {
+    "commonNames": "sassafras, white sassafras, red sassafras, silky sassafras",
+    "color": "rgba(90, 229, 129, 0.5)"
+  },
+  "Styphnolobium japonicum": {
+    "commonNames": "Japanese pagoda tree, Chinese scholar tree, pagoda tree",
+    "color": "rgba(145, 170, 117, 0.5)"
+  },
+  "Styrax japonicus": {
+    "commonNames": "Japanese snowbell",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Syringa pekinensis": {
+    "commonNames": "Chinese tree lilac, Peking lilac",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Syringa reticulata": {
+    "commonNames": "Japanese tree lilac",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Taxodium ascendens": {
+    "commonNames": "pond cypress",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Taxodium distichum": {
+    "commonNames": "bald cypress, swamp cypress, white cypress, tidewater red cypress, gulf cypress",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Thuja occidentalis": {
+    "commonNames": "arborvitae, northern white-cedar, eastern white-cedar",
+    "color": "rgba(196, 51, 0, 0.5)"
+  },
+  "Tilia americana": {
+    "commonNames": "American basswood, American linden",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Tilia cordata": {
+    "commonNames": "littleleaf linden, small-leaved lime, small-leaved linden",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Tilia tomentosa": {
+    "commonNames": "silver linden, silver lime, European white linden",
+    "color": "rgba(162, 84, 37, 0.5)"
+  },
+  "Tsuga canadensis": {
+    "commonNames": "eastern hemlock, eastern hemlock-spruce, Canadian hemlock",
+    "color": "rgba(224, 183, 69, 0.5)"
+  },
+  "Ulmus americana": {
+    "commonNames": "American elm, white elm, water elm",
+    "color": "rgba(9, 153, 34, 0.5)"
+  },
+  "Ulmus parvifolia": {
+    "commonNames": "Chinese elm, lacebark elm",
+    "color": "rgba(9, 153, 34, 0.5)"
+  },
+  "Ulmus pumila": {
+    "commonNames": "Siberian elm, Asiatic elm, dwarf elm",
+    "color": "rgba(9, 153, 34, 0.5)"
+  },
+  "Zelkova serrata": {
+    "commonNames": "Japanese zelkova, Japanese elm, keyaki",
+    "color": "rgba(9, 153, 34, 0.5)"
+  }
+}

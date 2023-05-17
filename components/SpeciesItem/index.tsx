@@ -6,10 +6,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import {SpeciesNameType} from '../../utils/types';
-import {SpeciesColor} from '../../utils/types';
+import {SpeciesDetail, SpeciesNameType} from '../../utils/types';
 
-import _speciesColors from '../../data/speciesColors.json';
+import _speciesDetails from '../../data/speciesDetails.json';
 
 type SpeciesItemProps = {
   item: SpeciesNameType;
@@ -18,7 +17,7 @@ type SpeciesItemProps = {
   deselect: Function;
 };
 
-const speciesColors: SpeciesColor = _speciesColors;
+const speciesDetails: SpeciesDetail = _speciesDetails;
 
 function SpeciesItem({item, select, selected, deselect}: SpeciesItemProps) {
   const styles = useMemo(() => styler(selected, item.id), [selected, item.id]);
@@ -49,7 +48,9 @@ const styler = (selected: boolean, scientificName: string) =>
       paddingRight: 15,
       paddingTop: 6,
       paddingBottom: 8,
-      backgroundColor: selected ? speciesColors[scientificName] : 'transparent',
+      backgroundColor: selected
+        ? speciesDetails[scientificName].color
+        : 'transparent',
       borderBottomColor: '#d6d6d6',
       borderBottomWidth: 1,
     },

@@ -22,12 +22,12 @@ import {FilterContext} from '../FilterController';
 import {Shadow} from 'react-native-shadow-2';
 import {SpeciesNameType} from '../../utils/types';
 
-import species from '../../data/species.json';
+import speciesDetails from '../../data/speciesDetails.json';
 import SpeciesPillList from '../SpeciesPillList';
 
-const nameData = Object.entries(species).map(([scientific, common]) => ({
+const nameData = Object.entries(speciesDetails).map(([scientific, detail]) => ({
   id: scientific,
-  title: common,
+  title: detail.commonNames,
 }));
 
 const fuseOptions = {

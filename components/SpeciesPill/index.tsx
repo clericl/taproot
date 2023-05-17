@@ -9,16 +9,16 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {SpeciesColor} from '../../utils/types';
+import {SpeciesDetail} from '../../utils/types';
 
-import _speciesColors from '../../data/speciesColors.json';
+import _speciesDetails from '../../data/speciesDetails.json';
 
 export type SpeciesPillProps = {
   item: SpeciesNameType;
   remove: Function;
 };
 
-const speciesColors: SpeciesColor = _speciesColors;
+const speciesDetails: SpeciesDetail = _speciesDetails;
 
 function SpeciesPill({item, remove}: SpeciesPillProps) {
   const displayName = useMemo(() => {
@@ -50,7 +50,7 @@ const styler = (scientificName: string) =>
       paddingRight: 15,
       paddingTop: 6,
       paddingBottom: 8,
-      backgroundColor: speciesColors[scientificName],
+      backgroundColor: speciesDetails[scientificName].color,
       borderRadius: 50,
       display: 'flex',
       flexDirection: 'row',
