@@ -9,7 +9,11 @@ import React, {
 import * as Location from 'expo-location';
 import API from '../../utils/API';
 import MapLoading from '../MapLoading';
-import MapView, {Region, PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {
+  MapPressEvent,
+  Region,
+  PROVIDER_GOOGLE,
+} from 'react-native-maps';
 import NtaRegion from '../NtaRegion';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
@@ -17,6 +21,7 @@ import {Dimensions, StyleSheet, View} from 'react-native';
 import {FilterContext} from '../FilterController';
 import {NtaDatumType, SpeciesNameType, TreeDatumType} from '../../utils/types';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import checkForTreeMarkerPress from '../../utils/checkForTreeMarkerPress';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
@@ -69,6 +74,20 @@ function Map() {
 
     return rendered;
   }, [zoomLevel, markerData]);
+
+  const handlePress = useCallback(
+    (pressEvent: MapPressEvent) => {
+      const coords = pressEvent.nativeEvent.coordinate;
+      const pressedMarker = checkForTreeMarkerPress(
+        markerData.trees,
+        coords,
+        zoomLevel.current,
+      );
+
+      console.log(pressedMarker);
+    },
+    [markerData.trees],
+  );
 
   const updateMarkers = useRef(
     asyncDebounce(async (newRegion: Region, newSpecies: SpeciesNameType[]) => {
@@ -186,6 +205,7 @@ function Map() {
         minZoomLevel={12}
         moveOnMarkerPress={false}
         onRegionChange={handleRegionChange}
+        onPress={handlePress}
         provider={PROVIDER_GOOGLE}
         ref={mapRef}
         showsUserLocation={true}
