@@ -16,11 +16,12 @@ import _speciesColors from '../../data/speciesColors.json';
 export type SpeciesPillProps = {
   item: SpeciesNameType;
   remove: Function;
+  setHeight: Function;
 };
 
 const speciesColors: SpeciesColor = _speciesColors;
 
-function SpeciesPill({item, remove}: SpeciesPillProps) {
+function SpeciesPill({item, remove, setHeight}: SpeciesPillProps) {
   const displayName = useMemo(() => {
     return item.title.split(', ')[0];
   }, [item]);
@@ -35,7 +36,9 @@ function SpeciesPill({item, remove}: SpeciesPillProps) {
 
   return (
     <Pressable onPress={handlePress} style={stylerPressable}>
-      <View style={styles.container}>
+      <View
+        style={styles.container}
+        onLayout={e => setHeight(e.nativeEvent.layout.height + 5)}>
         <Text style={styles.text}>{displayName}</Text>
         <Icon style={styles.closeIcon} name="close" />
       </View>

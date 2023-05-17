@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import SpeciesPill from '../../components/SpeciesPill';
 import {
   Animated,
-  Easing,
   Pressable,
   PressableStateCallbackType,
   StyleSheet,
@@ -28,14 +27,20 @@ const AnimatedIcon = Animated.createAnimatedComponent(Icon);
 
 function SpeciesPillList({remove}: SpeciesPillListProps) {
   const [open, setOpen] = useState(true);
+  const [height, setHeight] = useState(0);
   const {species: selected} = useContext(FilterContext);
+  const heightValue = useAnimation({immediate: false, from: height});
   const spinValue = useAnimation({immediate: false});
-  const heightValue = useAnimation({from: 900, immediate: false});
 
   const speciesPills = useMemo(
     () =>
       selected.map(item => (
-        <SpeciesPill key={item.id} item={item} remove={remove} />
+        <SpeciesPill
+          key={item.id}
+          item={item}
+          remove={remove}
+          setHeight={setHeight}
+        />
       )),
     [remove, selected],
   );
@@ -51,18 +56,25 @@ function SpeciesPillList({remove}: SpeciesPillListProps) {
       friction: 5,
       overshootClamping: true,
     }).start();
+  }, [open, spinValue]);
 
-    Animated.timing(heightValue, {
-      toValue: open ? 900 : 0,
+  useEffect(() => {
+    Animated.spring(heightValue, {
+      toValue: open ? height * selected.length : 0,
       useNativeDriver: false,
-      duration: 600,
-      easing: Easing.inOut(Easing.sin),
+      overshootClamping: true,
     }).start();
-  }, [open, heightValue, selected, spinValue]);
+  }, [height, heightValue, open, selected]);
 
   return (
     <View style={styles.pillList}>
-      <Animated.View style={[styles.collapse, {maxHeight: heightValue}]}>
+      <Animated.View
+        style={[
+          styles.collapse,
+          {
+            height: heightValue,
+          },
+        ]}>
         {speciesPills}
       </Animated.View>
       {!!selected.length && (
