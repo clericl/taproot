@@ -27,7 +27,7 @@ function NtaRegion({ntaDatum}: NtaRegionProps) {
 
   const [r, g, b] = hslToRgb(
     138 / 360,
-    ntaDatum.treeCount / HIGHEST_COUNT + 0.5,
+    ntaDatum.treeCount / HIGHEST_COUNT + 0.2,
     0.27,
   );
 
@@ -35,7 +35,7 @@ function NtaRegion({ntaDatum}: NtaRegionProps) {
     <>
       <Geojson
         geojson={featureCollection}
-        fillColor={`rgba(${r}, ${g}, ${b}, 0.6)`}
+        fillColor={`rgba(${r}, ${g}, ${b}, 0.7)`}
         title={ntaDatum.ntaName}
         tracksViewChanges={false}
       />
