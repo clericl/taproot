@@ -17,11 +17,14 @@ import MapView, {
 import NtaRegion from '../NtaRegion';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
+import checkForTreeMarkerPress from '../../utils/checkForTreeMarkerPress';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {FilterContext} from '../FilterController';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {NtaDatumType, SpeciesNameType, TreeDatumType} from '../../utils/types';
+import {RootStackParamList} from '../../App';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
-import checkForTreeMarkerPress from '../../utils/checkForTreeMarkerPress';
+import {useNavigation} from '@react-navigation/native';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
@@ -45,9 +48,11 @@ function Map() {
     ntas: [],
     trees: [],
   });
-  const mapRef = useRef<MapView>(null);
   const {species} = useContext(FilterContext);
+  const mapRef = useRef<MapView>(null);
   const zoomLevel = useRef(calcZoom(NYC_LATLNG.longitudeDelta));
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const ntaRegions = useMemo(() => {
     const rendered = [];
@@ -84,9 +89,22 @@ function Map() {
         zoomLevel.current,
       );
 
-      console.log(pressedMarker);
+      if (pressedMarker) {
+        if (mapRef.current) {
+          mapRef.current.animateCamera({
+            center: {
+              latitude: coords.latitude,
+              longitude: coords.longitude,
+            },
+          });
+        }
+
+        setTimeout(() => {
+          navigation.push('TreeDetail', {id: pressedMarker.id});
+        }, 600);
+      }
     },
-    [markerData.trees],
+    [markerData.trees, navigation],
   );
 
   const updateMarkers = useRef(

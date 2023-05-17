@@ -12,7 +12,9 @@ import TreeDetail from './screens/TreeDetail';
 export type RootStackParamList = {
   Landing: undefined;
   Map: undefined;
-  TreeDetail: undefined;
+  TreeDetail: {
+    id: number;
+  };
   Journey: undefined;
   Learn: undefined;
   Profile: undefined;

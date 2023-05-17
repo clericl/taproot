@@ -2,7 +2,7 @@ import {Geometry} from 'geojson';
 import {ReactNode} from 'react';
 
 export type TreeDatumType = {
-  id: string;
+  id: number;
   species: string;
   condition: string;
   diameter: number;
