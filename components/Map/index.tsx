@@ -154,27 +154,27 @@ function Map() {
   useEffect(() => {
     const update = async () => {
       if (mapRef.current) {
-        const currentCamera = await mapRef.current.getCamera();
-        const {latitude, longitude} = currentCamera.center;
-        await updateMarkers(
-          {
-            latitude,
-            longitude,
-            latitudeDelta: 0,
-            longitudeDelta: Math.exp(
-              Math.log(360) - (zoomLevel.current || 16) * Math.LN2,
-            ),
-          },
-          species,
-        );
+        try {
+          const currentCamera = await mapRef.current.getCamera();
+          const {latitude, longitude} = currentCamera.center;
+          await updateMarkers(
+            {
+              latitude,
+              longitude,
+              latitudeDelta: 0,
+              longitudeDelta: Math.exp(
+                Math.log(360) - (zoomLevel.current || 16) * Math.LN2,
+              ),
+            },
+            species,
+          );
+        } catch (e) {
+          console.log('map not initialized yet');
+        }
       }
     };
 
-    try {
-      update();
-    } catch (e) {
-      console.log('map not initialized yet!');
-    }
+    update();
   }, [species, updateMarkers]);
 
   return (

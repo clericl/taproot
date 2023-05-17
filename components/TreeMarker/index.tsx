@@ -23,6 +23,7 @@ function TreeMarker({treeDatum, zoomLevel}: TreeMarkerProps) {
       center={treeDatum.location}
       radius={(4 + Math.sqrt(treeDatum.diameter)) * zoomMultiplier}
       strokeColor="rgb(255, 255, 255)"
+      zIndex={1}
       fillColor={
         speciesColors[treeDatum.species.replaceAll('_', ' ')] ||
         'rgba(0, 0, 0, 0.5)'

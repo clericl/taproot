@@ -37,10 +37,12 @@ function CSSAnimationView({
 
   return (
     <Animated.View
-      style={{
-        ...style,
-        [property]: fadeAnim,
-      }}>
+      style={[
+        style,
+        {
+          [property]: fadeAnim,
+        },
+      ]}>
       {children}
     </Animated.View>
   );

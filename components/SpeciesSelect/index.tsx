@@ -2,13 +2,11 @@ import React, {
   useCallback,
   useContext,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
 import Fuse from 'fuse.js';
 import SpeciesItem from '../../components/SpeciesItem';
-import SpeciesPill from '../../components/SpeciesPill';
 import debounce from 'lodash.debounce';
 import {
   BackHandler,
@@ -25,6 +23,7 @@ import {Shadow} from 'react-native-shadow-2';
 import {SpeciesNameType} from '../../utils/types';
 
 import species from '../../data/species.json';
+import SpeciesPillList from '../SpeciesPillList';
 
 const nameData = Object.entries(species).map(([scientific, common]) => ({
   id: scientific,
@@ -59,7 +58,8 @@ function SpeciesSelect() {
 
   const addToSelected = useCallback(
     (item: SpeciesNameType) => {
-      setSelected([...selected, item]);
+      const oldSelected = selected.slice(selected.length < 10 ? 0 : 1);
+      setSelected([...oldSelected, item]);
       setOpen(false);
     },
     [selected, setSelected],
@@ -78,14 +78,6 @@ function SpeciesSelect() {
   const handleChangeText = useCallback((text: string) => {
     setInputValue(text);
   }, []);
-
-  const speciesPills = useMemo(
-    () =>
-      selected.map(item => (
-        <SpeciesPill key={item.id} item={item} remove={removeFromSelected} />
-      )),
-    [removeFromSelected, selected],
-  );
 
   useEffect(() => {
     updateData(inputValue);
@@ -117,14 +109,14 @@ function SpeciesSelect() {
               onBlur={() => setOpen(false)}
               onChangeText={handleChangeText}
               onFocus={() => setOpen(true)}
-              placeholder="Sort by species"
+              placeholder="Sort by species (max. 10)"
               placeholderTextColor="#969fae"
               style={styles.input}
               value={inputValue}
             />
           </ScrollView>
         </Shadow>
-        <View style={styles.pillList}>{speciesPills}</View>
+        <SpeciesPillList remove={removeFromSelected} />
       </View>
       <View style={[styles.widthContainer, styles.listContainer]}>
         <Shadow distance={2} style={[styles.shadow]}>

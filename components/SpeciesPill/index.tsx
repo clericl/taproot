@@ -36,7 +36,7 @@ function SpeciesPill({item, remove}: SpeciesPillProps) {
   return (
     <Pressable onPress={handlePress} style={stylerPressable}>
       <View style={styles.container}>
-        <Text style={[styles.text]}>{displayName}</Text>
+        <Text style={styles.text}>{displayName}</Text>
         <Icon style={styles.closeIcon} name="close" />
       </View>
     </Pressable>
