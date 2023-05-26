@@ -1,16 +1,16 @@
 import React, {useMemo} from 'react';
 import {Circle} from 'react-native-maps';
-import {TreeDatumType} from '../../utils/types';
-import {SpeciesDetail} from '../../utils/types';
+import {TreePointType} from '../../utils/types';
+import {SpeciesDetailsType} from '../../utils/types';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 
 type TreeMarkerProps = {
-  treeDatum: TreeDatumType;
+  treeDatum: TreePointType;
   zoomLevel: number;
 };
 
-const speciesDetails: SpeciesDetail = _speciesDetails;
+const speciesDetails: SpeciesDetailsType = _speciesDetails;
 
 function TreeMarker({treeDatum, zoomLevel}: TreeMarkerProps) {
   const zoomMultiplier = useMemo(

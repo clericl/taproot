@@ -1,6 +1,11 @@
 import {LatLng} from 'react-native-maps';
 import {API_ENDPOINT} from '@env';
-import {NtaDatumType, SpeciesNameType, TreeDatumType} from './types';
+import {
+  NtaDatumType,
+  SpeciesNameType,
+  TreeDetailType,
+  TreePointType,
+} from './types';
 
 interface RedisGeoSearchType {
   member: string;
@@ -11,10 +16,10 @@ interface RedisGeoSearchType {
 }
 
 class API {
-  static async getTreeData(
+  static async getTreePoints(
     {latitude, longitude}: LatLng,
     radius = 0.1,
-  ): Promise<TreeDatumType[]> {
+  ): Promise<TreePointType[]> {
     const res = await fetch(
       API_ENDPOINT +
         `/trees?latitude=${latitude}&longitude=${longitude}&radius=${radius}`,
@@ -71,7 +76,7 @@ class API {
     species: SpeciesNameType[],
     {latitude, longitude}: LatLng,
     radius = 0.1,
-  ): Promise<TreeDatumType[]> {
+  ): Promise<TreePointType[]> {
     const speciesString = species
       .map((speciesItem: SpeciesNameType) => speciesItem.id)
       .join(',');
@@ -102,6 +107,18 @@ class API {
           return returnObj;
         });
       return transformed;
+    } else {
+      const message = await res.text();
+      throw new Error(message);
+    }
+  }
+
+  static async getTreeDetail(id: number): Promise<TreeDetailType> {
+    const res = await fetch(API_ENDPOINT + `/tree/${id}`);
+
+    if (res.status < 400) {
+      const body = await res.json();
+      return body;
     } else {
       const message = await res.text();
       throw new Error(message);

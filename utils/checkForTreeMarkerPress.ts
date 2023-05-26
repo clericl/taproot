@@ -1,9 +1,9 @@
 import {getDistance} from 'geolib';
 import {LatLng} from 'react-native-maps';
-import {TreeDatumType} from './types';
+import {TreePointType} from './types';
 
 function checkForTreeMarkerPress(
-  treeData: TreeDatumType[],
+  treeData: TreePointType[],
   pressCoords: LatLng,
   zoomLevel: number,
 ) {
