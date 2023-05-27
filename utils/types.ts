@@ -39,7 +39,7 @@ export interface SpeciesDetailsType {
   };
 }
 
-export interface TreeDetailType {
+export type TreeDetailType = null | {
   tree_id: number;
   block_id: number;
   created_at: {
@@ -87,4 +87,4 @@ export interface TreeDetailType {
   census_tract: number;
   bin: number;
   bbl: number;
-}
+};

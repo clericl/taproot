@@ -26,14 +26,16 @@ function TreeDetailDrawerBackground({
   const treeDetailData = useAppSelector(state => state.treeDetail.data);
 
   return (
-    <View style={[defaultProps.style, styles.drawerBackground]}>
-      <Image
-        style={styles.treePhoto}
-        source={{
-          uri: BASE_IMAGE_URL + treeDetailData.spc_latin + '.jpg',
-        }}
-      />
-    </View>
+    treeDetailData && (
+      <View style={[defaultProps.style, styles.drawerBackground]}>
+        <Image
+          style={styles.treePhoto}
+          source={{
+            uri: BASE_IMAGE_URL + treeDetailData.spc_latin + '.jpg',
+          }}
+        />
+      </View>
+    )
   );
 }
 
@@ -42,7 +44,7 @@ function TreeDetailDrawer() {
   const treeDetailData = useAppSelector(state => state.treeDetail.data);
   const ref = useRef<BottomSheet>(null);
 
-  const snapPoints = useMemo(() => [100, '85%'], []);
+  const snapPoints = useMemo(() => [100, '75%'], []);
   const containerStyles = useMemo(
     () => styler(allowTouch).container,
     [allowTouch],
@@ -65,18 +67,16 @@ function TreeDetailDrawer() {
   }, []);
 
   const commonNames = useMemo(() => {
-    const latinName = treeDetailData.spc_latin;
-
-    if (latinName) {
-      const speciesDetail = speciesDetails[latinName];
+    if (treeDetailData) {
+      const speciesDetail = speciesDetails[treeDetailData.spc_latin];
       return speciesDetail.commonNames;
     }
 
     return '';
-  }, [treeDetailData.spc_latin]);
+  }, [treeDetailData]);
 
   useEffect(() => {
-    if (treeDetailData.spc_latin) {
+    if (treeDetailData) {
       ref.current?.snapToIndex(1);
     } else {
       ref.current?.close();
@@ -95,7 +95,9 @@ function TreeDetailDrawer() {
         snapPoints={snapPoints}>
         <View style={styles.contentContainer}>
           <Text style={styles.text}>drawer inner</Text>
-          <Text style={styles.text}>{treeDetailData.spc_latin}</Text>
+          <Text style={styles.text}>
+            {treeDetailData ? treeDetailData.spc_latin : ''}
+          </Text>
           <Text style={styles.text}>{commonNames}</Text>
         </View>
       </BottomSheet>
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    height: 200,
   },
   drawerBackground: {
     backgroundColor: 'black',
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
   },
   text: {
-    color: 'red',
+    color: 'white',
   },
   contentContainer: {
     flex: 1,

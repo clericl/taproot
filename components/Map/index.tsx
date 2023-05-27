@@ -15,6 +15,7 @@ import MapView, {
   PROVIDER_GOOGLE,
 } from 'react-native-maps';
 import NtaRegion from '../NtaRegion';
+import SelectedTreeMarker from '../SelectedTreeMarker';
 import TreeMarker from '../TreeMarker';
 import asyncDebounce from '../../utils/debounceAsync';
 import checkForTreeMarkerPress from '../../utils/checkForTreeMarkerPress';
@@ -24,7 +25,6 @@ import {NtaDatumType, SpeciesNameType, TreePointType} from '../../utils/types';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {clearTreeDetailData} from '../../redux/reducers/treeDetail';
 import {requestFetchTreeDetail} from '../../redux/actions';
-import {useAppSelector} from '../../redux/util/hooks';
 import {useDispatch} from 'react-redux';
 
 const NYC_LATLNG = {
@@ -54,7 +54,6 @@ function Map() {
   const dispatch = useDispatch();
   const mapRef = useRef<MapView>(null);
   const zoomLevel = useRef(calcZoom(NYC_LATLNG.longitudeDelta));
-  const selectedTree = useAppSelector(state => state.treeDetail.data.tree_id);
 
   const ntaRegions = useMemo(() => {
     const rendered = [];
@@ -75,13 +74,12 @@ function Map() {
           key={treeDatum.id}
           treeDatum={treeDatum}
           zoomLevel={zoomLevel.current}
-          selected={treeDatum.id === selectedTree}
         />,
       );
     }
 
     return rendered;
-  }, [selectedTree, markerData, zoomLevel]);
+  }, [markerData, zoomLevel]);
 
   const handlePress = useCallback(
     (pressEvent: MapPressEvent) => {
@@ -99,8 +97,7 @@ function Map() {
         if (mapRef.current) {
           mapRef.current.animateCamera({
             center: {
-              latitude:
-                coords.latitude - (calcDelta(zoomLevel.current) / 12) * 7.5,
+              latitude: coords.latitude - calcDelta(zoomLevel.current) / 1.75,
               longitude: coords.longitude,
             },
           });
@@ -233,6 +230,7 @@ function Map() {
         style={styles.map}>
         {ntaRegions}
         {treeMarkers}
+        <SelectedTreeMarker zoomLevel={zoomLevel.current} />
       </MapView>
       <MapLoading loading={loading} />
     </View>

@@ -13,7 +13,7 @@ type TreeMarkerProps = {
 
 const speciesDetails: SpeciesDetailsType = _speciesDetails;
 
-function TreeMarker({selected, treeDatum, zoomLevel}: TreeMarkerProps) {
+function TreeMarker({selected = false, treeDatum, zoomLevel}: TreeMarkerProps) {
   const zoomMultiplier = useMemo(
     () => Math.pow(16 / zoomLevel, 11) + 0.35,
     [zoomLevel],
@@ -29,8 +29,10 @@ function TreeMarker({selected, treeDatum, zoomLevel}: TreeMarkerProps) {
       strokeWidth={selected ? 8 : 1}
       zIndex={2}
       fillColor={
-        speciesDetails[treeDatum.species.replaceAll('_', ' ')]?.color ||
-        'rgba(0, 0, 0, 0.5)'
+        selected
+          ? 'rgba(0, 0, 0, 0)'
+          : speciesDetails[treeDatum.species.replaceAll('_', ' ')]?.color ||
+            'rgba(0, 0, 0, 0.5)'
       }
     />
   );
