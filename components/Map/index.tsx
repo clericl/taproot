@@ -20,14 +20,12 @@ import asyncDebounce from '../../utils/debounceAsync';
 import checkForTreeMarkerPress from '../../utils/checkForTreeMarkerPress';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {FilterContext} from '../FilterController';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {NtaDatumType, SpeciesNameType, TreePointType} from '../../utils/types';
-import {RootStackParamList} from '../../App';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {clearTreeDetailData} from '../../redux/reducers/treeDetail';
 import {requestFetchTreeDetail} from '../../redux/actions';
+import {useAppSelector} from '../../redux/util/hooks';
 import {useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
@@ -39,6 +37,7 @@ const NYC_LATLNG = {
 const MI_PER_LON_DEGREE = 54.6;
 
 const calcZoom = (delta: number) => Math.log(360 / delta) / Math.LN2;
+const calcDelta = (zoom: number) => 360 / Math.pow(Math.E, zoom * Math.LN2);
 
 type MarkerStateType = {
   ntas: NtaDatumType[];
@@ -55,8 +54,7 @@ function Map() {
   const dispatch = useDispatch();
   const mapRef = useRef<MapView>(null);
   const zoomLevel = useRef(calcZoom(NYC_LATLNG.longitudeDelta));
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const selectedTree = useAppSelector(state => state.treeDetail.data.tree_id);
 
   const ntaRegions = useMemo(() => {
     const rendered = [];
@@ -77,12 +75,13 @@ function Map() {
           key={treeDatum.id}
           treeDatum={treeDatum}
           zoomLevel={zoomLevel.current}
+          selected={treeDatum.id === selectedTree}
         />,
       );
     }
 
     return rendered;
-  }, [zoomLevel, markerData]);
+  }, [selectedTree, markerData, zoomLevel]);
 
   const handlePress = useCallback(
     (pressEvent: MapPressEvent) => {
@@ -100,18 +99,15 @@ function Map() {
         if (mapRef.current) {
           mapRef.current.animateCamera({
             center: {
-              latitude: coords.latitude,
+              latitude:
+                coords.latitude - (calcDelta(zoomLevel.current) / 12) * 7.5,
               longitude: coords.longitude,
             },
           });
         }
-
-        setTimeout(() => {
-          navigation.push('TreeDetail', {id: pressedMarker.id});
-        }, 600);
       }
     },
-    [dispatch, markerData.trees, navigation],
+    [dispatch, markerData.trees],
   );
 
   const updateMarkers = useRef(

@@ -9,7 +9,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {SpeciesDetail} from '../../utils/types';
+import {SpeciesDetailsType} from '../../utils/types';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 
@@ -18,7 +18,7 @@ export type SpeciesPillProps = {
   remove: Function;
 };
 
-const speciesDetails: SpeciesDetail = _speciesDetails;
+const speciesDetails: SpeciesDetailsType = _speciesDetails;
 
 function SpeciesPill({item, remove}: SpeciesPillProps) {
   const displayName = useMemo(() => {
