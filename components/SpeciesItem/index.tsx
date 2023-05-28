@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {SpeciesDetail, SpeciesNameType} from '../../utils/types';
+import {SpeciesDetail, SpeciesNameType} from '../../types';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 

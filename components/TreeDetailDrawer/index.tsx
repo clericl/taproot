@@ -9,8 +9,8 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import {SpeciesDetailsType} from '../../utils/types';
-import {useAppSelector} from '../../redux/util/hooks';
+import {SpeciesDetailsType} from '../../types';
+import {useAppSelector} from '../../redux/utils/hooks';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 
@@ -44,7 +44,7 @@ function TreeDetailDrawer() {
   const treeDetailData = useAppSelector(state => state.treeDetail.data);
   const ref = useRef<BottomSheet>(null);
 
-  const snapPoints = useMemo(() => [100, '75%'], []);
+  const snapPoints = useMemo(() => [140, '75%'], []);
   const containerStyles = useMemo(
     () => styler(allowTouch).container,
     [allowTouch],
@@ -61,8 +61,13 @@ function TreeDetailDrawer() {
     setAllowTouch(index === 1);
   }, []);
 
-  const handleOuterPress = useCallback(({nativeEvent}: any) => {
-    console.log(nativeEvent);
+  const handleInnerPress = useCallback(() => {
+    if (!allowTouch) {
+      ref.current?.snapToIndex(1);
+    }
+  }, [allowTouch]);
+
+  const handleOuterPress = useCallback(() => {
     ref.current?.snapToIndex(0);
   }, []);
 
@@ -93,13 +98,14 @@ function TreeDetailDrawer() {
         ref={ref}
         onChange={handleSheetChanges}
         snapPoints={snapPoints}>
-        <View style={styles.contentContainer}>
-          <Text style={styles.text}>drawer inner</Text>
-          <Text style={styles.text}>
-            {treeDetailData ? treeDetailData.spc_latin : ''}
-          </Text>
-          <Text style={styles.text}>{commonNames}</Text>
-        </View>
+        <Pressable onPress={handleInnerPress} style={styles.contentContainer}>
+          <View style={styles.titleContainer}>
+            <Text style={[styles.text, styles.latin]}>
+              {treeDetailData ? treeDetailData.spc_latin : ''}
+            </Text>
+            <Text style={[styles.text, styles.common]}>{commonNames}</Text>
+          </View>
+        </Pressable>
       </BottomSheet>
     </Pressable>
   );
@@ -148,7 +154,7 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: 'transparent',
     position: 'relative',
     borderTopLeftRadius: 5,
@@ -161,6 +167,19 @@ const styles = StyleSheet.create({
   handleIndicator: {
     backgroundColor: 'white',
     marginTop: 10,
+  },
+  titleContainer: {
+    width: '100%',
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  latin: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  common: {
+    fontSize: 12,
+    marginTop: 4,
   },
 });
 

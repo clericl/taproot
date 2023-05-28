@@ -1,5 +1,5 @@
 import React, {createContext, useState} from 'react';
-import {ControllerProps, SpeciesNameType} from '../../utils/types';
+import {ControllerProps, SpeciesNameType} from '../../types';
 
 type FilterContextProps = {
   species: SpeciesNameType[];

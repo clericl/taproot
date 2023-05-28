@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Circle} from 'react-native-maps';
-import {TreePointType} from '../../utils/types';
-import {SpeciesDetailsType} from '../../utils/types';
+import {TreePointType} from '../../types';
+import {SpeciesDetailsType} from '../../types';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 

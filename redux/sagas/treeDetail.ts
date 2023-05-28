@@ -1,7 +1,7 @@
-import API from '../../utils/API';
+import API from '../../api';
 import {PayloadAction} from '@reduxjs/toolkit';
 import {CallEffect, call, put, takeLatest} from 'redux-saga/effects';
-import {TreeDetailType} from '../../utils/types';
+import {TreeDetailType} from '../../types';
 import {
   fetchTreeDetailFailed,
   fetchTreeDetailSuccess,

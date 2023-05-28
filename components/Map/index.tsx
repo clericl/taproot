@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react';
 import * as Location from 'expo-location';
-import API from '../../utils/API';
+import API from '../../api';
 import MapLoading from '../MapLoading';
 import MapView, {
   MapPressEvent,
@@ -21,7 +21,7 @@ import asyncDebounce from '../../utils/debounceAsync';
 import checkForTreeMarkerPress from '../../utils/checkForTreeMarkerPress';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {FilterContext} from '../FilterController';
-import {NtaDatumType, SpeciesNameType, TreePointType} from '../../utils/types';
+import {NtaDatumType, SpeciesNameType, TreePointType} from '../../types';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {clearTreeDetailData} from '../../redux/reducers/treeDetail';
 import {requestFetchTreeDetail} from '../../redux/actions';

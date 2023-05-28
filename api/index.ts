@@ -5,7 +5,7 @@ import {
   SpeciesNameType,
   TreeDetailType,
   TreePointType,
-} from './types';
+} from '../types';
 
 interface RedisGeoSearchType {
   member: string;

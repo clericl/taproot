@@ -11,7 +11,7 @@ import Learn from './screens/Learn';
 import Map from './screens/Map';
 import Profile from './screens/Profile';
 import TreeDetail from './screens/TreeDetail';
-import store from './redux/util/store';
+import store from './redux/utils/store';
 
 export type RootStackParamList = {
   Landing: undefined;

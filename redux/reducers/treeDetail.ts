@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {TreeDetailType} from '../../utils/types';
+import {TreeDetailType} from '../../types';
 
 interface TreeDetailSliceState {
   loading: boolean;

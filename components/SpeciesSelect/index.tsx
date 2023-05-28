@@ -20,7 +20,9 @@ import {
 } from 'react-native';
 import {FilterContext} from '../FilterController';
 import {Shadow} from 'react-native-shadow-2';
-import {SpeciesNameType} from '../../utils/types';
+import {SpeciesNameType} from '../../types';
+import {clearTreeDetailData} from '../../redux/reducers/treeDetail';
+import {useAppDispatch} from '../../redux/utils/hooks';
 
 import speciesDetails from '../../data/speciesDetails.json';
 import SpeciesPillList from '../SpeciesPillList';
@@ -43,6 +45,7 @@ function SpeciesSelect() {
   const [data, setData] = useState(nameData);
   const [inputValue, setInputValue] = useState('');
   const [open, setOpen] = useState(false);
+  const dispatch = useAppDispatch();
   const {species: selected, setSpecies: setSelected} =
     useContext(FilterContext);
   const updateData = useRef(
@@ -82,6 +85,10 @@ function SpeciesSelect() {
   useEffect(() => {
     updateData(inputValue);
   }, [inputValue, updateData]);
+
+  useEffect(() => {
+    dispatch(clearTreeDetailData());
+  }, [dispatch, selected]);
 
   useEffect(() => {
     const handleBack = () => {

@@ -1,6 +1,6 @@
 import React, {useMemo} from 'react';
 import {Circle} from 'react-native-maps';
-import {useAppSelector} from '../../redux/util/hooks';
+import {useAppSelector} from '../../redux/utils/hooks';
 
 type SelectedTreeMarkerProps = {
   zoomLevel: number;

@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {SpeciesNameType} from '../../utils/types';
+import {SpeciesNameType} from '../../types';
 import {
   Pressable,
   PressableStateCallbackType,
@@ -9,7 +9,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import {SpeciesDetailsType} from '../../utils/types';
+import {SpeciesDetailsType} from '../../types';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 

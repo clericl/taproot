@@ -1,8 +1,8 @@
 import React, {useMemo} from 'react';
 import {BASE_IMAGE_URL} from '@env';
 import {Dimensions, Image, Text, View, StyleSheet} from 'react-native';
-import {SpeciesDetailsType} from '../../utils/types';
-import {useAppSelector} from '../../redux/util/hooks';
+import {SpeciesDetailsType} from '../../types';
+import {useAppSelector} from '../../redux/utils/hooks';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 

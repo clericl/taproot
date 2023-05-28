@@ -2,7 +2,7 @@ import React, {useMemo} from 'react';
 import hslToRgb from '../../utils/hslToRgb';
 import {Geojson} from 'react-native-maps';
 import {GeoJSON} from 'geojson';
-import {NtaDatumType} from '../../utils/types';
+import {NtaDatumType} from '../../types';
 
 type NtaRegionProps = {
   ntaDatum: NtaDatumType;
