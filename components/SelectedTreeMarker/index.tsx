@@ -1,6 +1,11 @@
 import React, {useMemo} from 'react';
 import {Circle} from 'react-native-maps';
+import {SpeciesDetailsType} from '../../types';
 import {useAppSelector} from '../../redux/utils/hooks';
+
+import _speciesDetails from '../../data/speciesDetails.json';
+
+const speciesDetails: SpeciesDetailsType = _speciesDetails;
 
 function SelectedTreeMarker() {
   const treeDetailData = useAppSelector(state => state.treeDetail.data);
@@ -32,10 +37,15 @@ function SelectedTreeMarker() {
           longitude: treeDetailData.longitude,
         }}
         radius={(8 + Math.sqrt(diameter)) * zoomMultiplier}
-        strokeColor={'rgba(55, 55, 55, 0.5)'}
+        strokeColor={'rgba(32, 47, 250, 0.5)'}
         strokeWidth={8}
-        zIndex={2}
-        fillColor={'rgba(0, 0, 0, 0)'}
+        zIndex={4}
+        fillColor={
+          zoomLevel < 16
+            ? speciesDetails[treeDetailData.spc_latin]?.color ||
+              'rgba(0, 0, 0, 0.5)'
+            : 'rgba(0, 0, 0, 0)'
+        }
       />
     )
   );

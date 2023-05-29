@@ -6,7 +6,6 @@ import React, {
   useRef,
 } from 'react';
 import * as Location from 'expo-location';
-import MapLoading from '../MapLoading';
 import MapView, {
   MapPressEvent,
   Region,
@@ -33,9 +32,7 @@ const NYC_LATLNG = {
 
 function Map() {
   const dispatch = useAppDispatch();
-  const {loading, markerData, zoomLevel} = useAppSelector(
-    state => state.mapData,
-  );
+  const {markerData, zoomLevel} = useAppSelector(state => state.mapData);
   const mapRef = useRef<MapView>(null);
   const {species} = useContext(FilterContext);
 

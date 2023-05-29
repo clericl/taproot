@@ -7,13 +7,12 @@ import {useAppSelector} from '../../redux/utils/hooks';
 import _speciesDetails from '../../data/speciesDetails.json';
 
 type TreeMarkerProps = {
-  selected?: boolean;
   treeDatum: TreePointType;
 };
 
 const speciesDetails: SpeciesDetailsType = _speciesDetails;
 
-function TreeMarker({selected = false, treeDatum}: TreeMarkerProps) {
+function TreeMarker({treeDatum}: TreeMarkerProps) {
   const zoomLevel = useAppSelector(state => state.mapData.zoomLevel);
 
   const zoomMultiplier = useMemo(
@@ -24,17 +23,13 @@ function TreeMarker({selected = false, treeDatum}: TreeMarkerProps) {
   return (
     <Circle
       center={treeDatum.location}
-      radius={
-        (selected ? 8 : 4 + Math.sqrt(treeDatum.diameter)) * zoomMultiplier
-      }
-      strokeColor={selected ? 'rgba(55, 55, 55, 0.5)' : 'rgb(255, 255, 255)'}
-      strokeWidth={selected ? 8 : 1}
+      radius={(4 + Math.sqrt(treeDatum.diameter)) * zoomMultiplier}
+      strokeColor="rgb(255, 255, 255)"
+      strokeWidth={1}
       zIndex={2}
       fillColor={
-        selected
-          ? 'rgba(0, 0, 0, 0)'
-          : speciesDetails[treeDatum.species.replaceAll('_', ' ')]?.color ||
-            'rgba(0, 0, 0, 0.5)'
+        speciesDetails[treeDatum.species.replaceAll('_', ' ')]?.color ||
+        'rgba(0, 0, 0, 0.5)'
       }
     />
   );
