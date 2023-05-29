@@ -1,14 +1,16 @@
 import React from 'react';
 import MapComponent from '../../components/Map';
+import MapLoading from '../../components/MapLoading';
 import SpeciesSelect from '../../components/SpeciesSelect';
-import {View, StyleSheet} from 'react-native';
 import TreeDetailDrawer from '../../components/TreeDetailDrawer';
+import {View, StyleSheet} from 'react-native';
 
 function Map() {
   return (
     <View style={styles.container}>
       <MapComponent />
       <SpeciesSelect />
+      <MapLoading />
       <TreeDetailDrawer />
     </View>
   );

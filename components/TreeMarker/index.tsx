@@ -2,18 +2,20 @@ import React, {useMemo} from 'react';
 import {Circle} from 'react-native-maps';
 import {TreePointType} from '../../types';
 import {SpeciesDetailsType} from '../../types';
+import {useAppSelector} from '../../redux/utils/hooks';
 
 import _speciesDetails from '../../data/speciesDetails.json';
 
 type TreeMarkerProps = {
   selected?: boolean;
   treeDatum: TreePointType;
-  zoomLevel: number;
 };
 
 const speciesDetails: SpeciesDetailsType = _speciesDetails;
 
-function TreeMarker({selected = false, treeDatum, zoomLevel}: TreeMarkerProps) {
+function TreeMarker({selected = false, treeDatum}: TreeMarkerProps) {
+  const zoomLevel = useAppSelector(state => state.mapData.zoomLevel);
+
   const zoomMultiplier = useMemo(
     () => Math.pow(16 / zoomLevel, 11) + 0.35,
     [zoomLevel],

@@ -1,5 +1,6 @@
 import {Geometry} from 'geojson';
 import {ReactNode} from 'react';
+import {Region} from 'react-native-maps';
 
 export type TreePointType = {
   id: number;
@@ -87,4 +88,9 @@ export type TreeDetailType = null | {
   census_tract: number;
   bin: number;
   bbl: number;
+};
+
+export type MapDataRequestType = {
+  region: Region;
+  speciesList: SpeciesNameType[];
 };

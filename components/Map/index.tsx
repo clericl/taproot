@@ -4,10 +4,8 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-  useState,
 } from 'react';
 import * as Location from 'expo-location';
-import API from '../../api';
 import MapLoading from '../MapLoading';
 import MapView, {
   MapPressEvent,
@@ -17,15 +15,14 @@ import MapView, {
 import NtaRegion from '../NtaRegion';
 import SelectedTreeMarker from '../SelectedTreeMarker';
 import TreeMarker from '../TreeMarker';
-import asyncDebounce from '../../utils/debounceAsync';
 import checkForTreeMarkerPress from '../../utils/checkForTreeMarkerPress';
 import {Dimensions, StyleSheet, View} from 'react-native';
 import {FilterContext} from '../FilterController';
-import {NtaDatumType, SpeciesNameType, TreePointType} from '../../types';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {clearTreeDetailData} from '../../redux/reducers/treeDetail';
-import {requestFetchTreeDetail} from '../../redux/actions';
-import {useDispatch} from 'react-redux';
+import {requestFetchMapData, requestFetchTreeDetail} from '../../redux/actions';
+import {calcDelta} from '../../utils/calcZoomLevel';
+import {useAppDispatch, useAppSelector} from '../../redux/utils/hooks';
 
 const NYC_LATLNG = {
   latitude: 40.7128,
@@ -34,26 +31,13 @@ const NYC_LATLNG = {
   longitudeDelta: 0.04757,
 };
 
-const MI_PER_LON_DEGREE = 54.6;
-
-const calcZoom = (delta: number) => Math.log(360 / delta) / Math.LN2;
-const calcDelta = (zoom: number) => 360 / Math.pow(Math.E, zoom * Math.LN2);
-
-type MarkerStateType = {
-  ntas: NtaDatumType[];
-  trees: TreePointType[];
-};
-
 function Map() {
-  const [loading, setLoading] = useState(false);
-  const [markerData, setMarkerData] = useState<MarkerStateType>({
-    ntas: [],
-    trees: [],
-  });
-  const {species} = useContext(FilterContext);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const {loading, markerData, zoomLevel} = useAppSelector(
+    state => state.mapData,
+  );
   const mapRef = useRef<MapView>(null);
-  const zoomLevel = useRef(calcZoom(NYC_LATLNG.longitudeDelta));
+  const {species} = useContext(FilterContext);
 
   const ntaRegions = useMemo(() => {
     const rendered = [];
@@ -69,17 +53,11 @@ function Map() {
     const rendered = [];
 
     for (const treeDatum of markerData.trees) {
-      rendered.push(
-        <TreeMarker
-          key={treeDatum.id}
-          treeDatum={treeDatum}
-          zoomLevel={zoomLevel.current}
-        />,
-      );
+      rendered.push(<TreeMarker key={treeDatum.id} treeDatum={treeDatum} />);
     }
 
     return rendered;
-  }, [markerData, zoomLevel]);
+  }, [markerData.trees]);
 
   const handlePress = useCallback(
     (pressEvent: MapPressEvent) => {
@@ -87,7 +65,7 @@ function Map() {
       const pressedMarker = checkForTreeMarkerPress(
         markerData.trees,
         coords,
-        zoomLevel.current,
+        zoomLevel,
       );
 
       if (pressedMarker) {
@@ -97,74 +75,21 @@ function Map() {
         if (mapRef.current) {
           mapRef.current.animateCamera({
             center: {
-              latitude: coords.latitude - calcDelta(zoomLevel.current) / 1.75,
+              latitude: coords.latitude - calcDelta(zoomLevel) / 1.75,
               longitude: coords.longitude,
             },
           });
         }
       }
     },
-    [dispatch, markerData.trees],
+    [dispatch, markerData.trees, zoomLevel],
   );
 
-  const updateMarkers = useRef(
-    asyncDebounce(async (newRegion: Region, newSpecies: SpeciesNameType[]) => {
-      const {latitude, longitude, longitudeDelta} = newRegion;
-      const searchAreaRadius = longitudeDelta * MI_PER_LON_DEGREE;
-
-      zoomLevel.current = calcZoom(longitudeDelta);
-
-      try {
-        if (newSpecies.length) {
-          const newData = await API.getSpeciesData(
-            newSpecies,
-            {latitude, longitude},
-            searchAreaRadius,
-          );
-          setMarkerData({
-            ntas: [],
-            trees: newData,
-          });
-        } else {
-          if (zoomLevel.current > 16) {
-            const newData = await API.getTreePoints(
-              {latitude, longitude},
-              searchAreaRadius,
-            );
-            setMarkerData({
-              ntas: [],
-              trees: newData,
-            });
-          } else if (zoomLevel.current > 10) {
-            const newData = await API.getNtaData(
-              {latitude, longitude},
-              searchAreaRadius * 2,
-            );
-            setMarkerData({
-              ntas: newData,
-              trees: [],
-            });
-          } else {
-            setMarkerData({
-              ntas: [],
-              trees: [],
-            });
-          }
-        }
-      } catch (e) {
-        console.log(e);
-      }
-
-      setLoading(false);
-    }, 400),
-  ).current;
-
   const handleRegionChange = useCallback(
-    (newRegion: Region) => {
-      setLoading(true);
-      updateMarkers(newRegion, species);
+    (region: Region) => {
+      dispatch(requestFetchMapData({region, speciesList: species}));
     },
-    [species, updateMarkers],
+    [dispatch, species],
   );
 
   useEffect(() => {
@@ -194,16 +119,18 @@ function Map() {
         try {
           const currentCamera = await mapRef.current.getCamera();
           const {latitude, longitude} = currentCamera.center;
-          await updateMarkers(
-            {
-              latitude,
-              longitude,
-              latitudeDelta: 0,
-              longitudeDelta: Math.exp(
-                Math.log(360) - (zoomLevel.current || 16) * Math.LN2,
-              ),
-            },
-            species,
+          dispatch(
+            requestFetchMapData({
+              region: {
+                latitude,
+                longitude,
+                latitudeDelta: 0,
+                longitudeDelta: Math.exp(
+                  Math.log(360) - (zoomLevel || 16) * Math.LN2,
+                ),
+              },
+              speciesList: species,
+            }),
           );
         } catch (e) {
           console.log('map not initialized yet');
@@ -212,7 +139,7 @@ function Map() {
     };
 
     update();
-  }, [species, updateMarkers]);
+  }, [dispatch, species, zoomLevel]);
 
   return (
     <View style={styles.container}>
@@ -230,9 +157,8 @@ function Map() {
         style={styles.map}>
         {ntaRegions}
         {treeMarkers}
-        <SelectedTreeMarker zoomLevel={zoomLevel.current} />
+        <SelectedTreeMarker />
       </MapView>
-      <MapLoading loading={loading} />
     </View>
   );
 }

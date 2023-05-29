@@ -13,7 +13,7 @@ const store = configureStore({
     treeDetail: treeDetailReducer,
   },
   middleware: getDefaultMiddleware => [
-    ...getDefaultMiddleware(),
+    ...getDefaultMiddleware({serializableCheck: false}),
     sagaMiddleware,
     logger,
   ],

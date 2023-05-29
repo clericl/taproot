@@ -1,16 +1,29 @@
+import {NtaDatumType, TreePointType} from '../../types';
 import {createSlice} from '@reduxjs/toolkit';
+
+interface MapDataSliceState {
+  loading: boolean;
+  markerData: {
+    ntas: NtaDatumType[];
+    trees: TreePointType[];
+  };
+  zoomLevel: number;
+}
+
+const initialState: MapDataSliceState = {
+  loading: false,
+  markerData: {
+    ntas: [],
+    trees: [],
+  },
+  zoomLevel: 12.885657260804033,
+};
 
 const mapDataSlice = createSlice({
   name: 'mapData',
-  initialState: {
-    loading: false,
-    markerData: {
-      ntas: [],
-      trees: [],
-    },
-  },
+  initialState,
   reducers: {
-    setMarkerData: (state, action) => {
+    setMapData: (state, action) => {
       const newNtas = action.payload.ntas || [];
       const newTrees = action.payload.trees || [];
 
@@ -25,9 +38,14 @@ const mapDataSlice = createSlice({
       state.loading = action.payload;
       return state;
     },
+    setZoomLevel: (state, action) => {
+      state.zoomLevel = action.payload;
+      return state;
+    },
   },
 });
 
-export const {setMarkerData, setMapDataLoading} = mapDataSlice.actions;
+export const {setMapData, setMapDataLoading, setZoomLevel} =
+  mapDataSlice.actions;
 
 export default mapDataSlice.reducer;

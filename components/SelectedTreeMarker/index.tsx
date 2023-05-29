@@ -2,12 +2,9 @@ import React, {useMemo} from 'react';
 import {Circle} from 'react-native-maps';
 import {useAppSelector} from '../../redux/utils/hooks';
 
-type SelectedTreeMarkerProps = {
-  zoomLevel: number;
-};
-
-function SelectedTreeMarker({zoomLevel}: SelectedTreeMarkerProps) {
+function SelectedTreeMarker() {
   const treeDetailData = useAppSelector(state => state.treeDetail.data);
+  const zoomLevel = useAppSelector(state => state.mapData.zoomLevel);
 
   const diameter = useMemo(() => {
     if (treeDetailData) {
