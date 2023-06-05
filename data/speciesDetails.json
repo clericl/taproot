@@ -11,7 +11,7 @@
   "Acer campestre": {
     "commonNames": "field maple, hedge maple",
     "color": "rgba(118, 191, 84, 0.5)",
-    "description": "The field maple is a deciduous tree native to Europe, western Asia, and North Africa. It is small to medium-sized, typically growing up to 30 to 50 feet. It has a rounded crown with dense foliage. The leaves are palmate and typically have five lobes, and turn from green to vibrant yellow in the autumn. The field maple is adaptable and thrives in a wide range of soils, including chalky and clay soils. It provides a valuable habitat for wildliffe with its dense foliage and branching structure, which offer nesting sites and shelter for birds. The bark and leaves are used in some traditional medicine, and the wood is popular for furniture, musical instruments, and tool handles."
+    "description": "The field maple is a deciduous tree native to Europe, western Asia, and North Africa. It is small to medium-sized, typically growing up to 30 to 50 feet. It has a rounded crown with dense foliage. The leaves are palmate and typically have five lobes, and turn from green to vibrant yellow in the autumn. The field maple is adaptable and thrives in a wide range of soils, including chalky and clay soils. It provides a valuable habitat for wildlife with its dense foliage and branching structure, which offer nesting sites and shelter for birds. The bark and leaves are used in some traditional medicine, and the wood is popular for furniture, musical instruments, and tool handles."
   },
   "Acer ginnala": {
     "commonNames": "Amur maple",
@@ -51,7 +51,7 @@
   "Acer pseudoplatanus": {
     "commonNames": "sycamore maple, planetree maple",
     "color": "rgba(118, 191, 84, 0.5)",
-    "description": "The sycamore maple is a large deciduous tree native to central Europe and southwestern Asia. It is known for its broad-spreading crown, reaching heights of up to 100 feet. It grows rapidly, making it suitable for reforestation efforts. The sycamore maple has distinctive palmate leaves with five lobes that grow on long leafstalks, and the flowers are greenish-yellow and form drooping clusters. The wood is strong with an attractive, close grain and a creamy white color, and is used for musical instruments, furniture, joinery, flooring, and kitchen utensils."
+    "description": "The sycamore maple is a large deciduous tree native to central Europe and southwestern Asia. It is known for its broad-spreading crown, reaching heights of up to 100 feet. It grows rapidly, making it suitable for reforestation efforts. The sycamore maple has distinctive palmate leaves with five lobes that grow on long stalks, and the flowers are greenish-yellow and form drooping clusters. The wood is strong with an attractive, close grain and a creamy white color, and is used for musical instruments, furniture, joinery, flooring, and kitchen utensils."
   },
   "Acer rubrum": {
     "commonNames": "red maple, swamp maple, water maple, soft maple",
@@ -64,7 +64,7 @@
     "description": "The silver maple is a fast-growing deciduous tree native to eastern North America. It is known for the distinctive silver undersides of its leaves, which shimmer in the breeze and give the species its common name. It has a spreading crown that offers generous shade, and its deeply lobed, palmate leaves turn pale yellow or golden in the fall. Though it tolerates wet and poorly drained soils well, such as in areas prone to flooding, the wood is relatively brittle and prone to storm damage."
   },
   "Acer saccharum": {
-    "commonNames": "suger maple, rock maple, sugar tree, birds-eye maple, sweet maple, curly maple, hard maple",
+    "commonNames": "sugar maple, rock maple, sugar tree, birds-eye maple, sweet maple, curly maple, hard maple",
     "color": "rgba(118, 191, 84, 0.5)",
     "description": "The sugar maple is a large deciduous tree native to North America that is well known as the primary source of maple syrup, which is derived from the tree sap. The bright green leaves are palmate with five lobes and turn spectacular colors in fall, ranging from bright yellow to fluorescent red-orange to deep purple. The dense hardwood is also highly valued for furniture, flooring, and cabinetry. The seeds, young leaves, and inner bark are edible to some extent. The roots are deeper than most maples and draw water from lower soil to hydrate drier soil closer to the surface. It is one of the most important species in its native forests."
   },
@@ -76,7 +76,7 @@
   "Acer truncatum": {
     "commonNames": "Shandong maple, Shantung maple, purpleblow maple",
     "color": "rgba(118, 191, 84, 0.5)",
-    "description": "The Shandong maple is native to eastern Asia, particularly China. It is a small to medium-sized tree to can grow up to 50 feet tall, and features a broad, rounded crown. The bark is smooth on young trees and becomes shallowly ridged with age. The leaves are palmate with five lobes and often have wavy margins."
+    "description": "The Shandong maple is native to eastern Asia, particularly China. It is a small to medium-sized tree that can grow up to 50 feet tall, and features a broad, rounded crown. The bark is smooth on young trees and becomes shallowly ridged with age. The leaves are palmate with five lobes and often have wavy margins."
   },
   "Acer": {
     "commonNames": "maple",
@@ -89,14 +89,14 @@
     "description": "The Ohio buckeye is a deciduous tree native to the eastern and central parts of the United States. The leaves are palmately compound with five long, broad leaflets. The flowers are small, have stamens longer than the petals, and are arranged in branched clusters. These flowers develop into inedible, nutlike, glossy brown fruits with a lighter beige spot. The fruits are called buckeyes, giving rise to the tree's common name."
   },
   "Aesculus hippocastanum": {
-    "commonNames": "horse chestnut, European horsechestnut, buckeye, conker tree",
+    "commonNames": "horse chestnut, European horse chestnut, buckeye, conker tree",
     "color": "rgba(126, 150, 60, 0.5)",
     "description": "The horse chestnut is a large deciduous tree native to the Balkan Peninsula in southeastern Europe. The leaves are palmately compound with five to seven leaflets. The flowers are white with a pink or yellow blotch at the base, and are produced in clusters of a few dozen. These develop into nutlike fruits covered by a spiky green capsule, historically fed to horses to treat respiratory ailments, thus giving rise to the common name. These fruits are poisonous to humans and should not be eaten."
   },
   "Aesculus x carnea": {
     "commonNames": "red horse-chestnut",
     "color": "rgba(126, 150, 60, 0.5)",
-    "description": "The red horse-chestnut is a hybrid between the Aesculus pavia, the red buckeye, and Aesculus hippocastanum, the horse chestnut tree. It grows up to 40 feet tall with a large, round canopy that casts dense shade. The leaves are dark green and palmately compound, divided into five large, toothed leaflets. The tree produces cone-shaped clusters of red flowers in spring."
+    "description": "The red horse-chestnut is a hybrid between Aesculus pavia, the red buckeye, and Aesculus hippocastanum, the horse chestnut tree. It grows up to 40 feet tall with a large, round canopy that casts dense shade. The leaves are dark green and palmately compound, divided into five large, toothed leaflets. The tree produces cone-shaped clusters of red flowers in spring."
   },
   "Ailanthus altissima": {
     "commonNames": "tree of heaven, ailanthus, varnish tree",
@@ -106,7 +106,7 @@
   "Albizia julibrissin": {
     "commonNames": "silk tree, Persian silk tree, pink silk tree, mimosa tree",
     "color": "rgba(12, 88, 57, 0.5)",
-    "description": "The silk tree is a small to medium-sized deciduous tree native to Asia, particularly Iran, China, and Korea. It is distinguished by its unique, fluffy-looking flowers, which resemble starbursts of pink silklike threads. The leaves are large and frondlike, with each featuring 20 to 30 pairs of leaflets. These leaves fold and droop during the night, in periods of rain, and in response to touch, a mechanism to conserve water and protect the tree from potential threats."
+    "description": "The silk tree is a small to medium-sized deciduous tree native to Asia, particularly Iran, China, and Korea. It is distinguished by its unique, fluffy-looking flowers, which resemble starbursts of pink, silk-like threads. The leaves are large and frondlike, with each featuring 20 to 30 pairs of leaflets. These leaves fold and droop during the night, in periods of rain, and in response to touch, a mechanism to conserve water and protect the tree from potential threats."
   },
   "Alnus glutinosa": {
     "commonNames": "black alder, common alder, European alder",
